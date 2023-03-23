@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//do not want to display welcome page 
 Route::get('/', function () {
-    return view('welcome');
+    if ($user = Auth::user()) {
+        //if login
+        return redirect('/dashboard');
+    } else {
+        //if not login
+        return redirect('login');
+    }
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'loadDashboard'])->name('dashboard');
