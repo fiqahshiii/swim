@@ -6,6 +6,10 @@
 
 </head>
 
+<style>
+    
+</style>
+
 <body>
     @include('layouts.partials.header')
     @yield('sideNav')

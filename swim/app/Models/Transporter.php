@@ -11,11 +11,13 @@ class Transporter extends Model
 
     protected $fillable = [
         'id',
-        'scheduledwasteID',
         'fullname',
         'phonenum',
         'email',
         'address',
         'gender',
+        'platenumber',
+        'city',
+        'status', 
     ];
 }

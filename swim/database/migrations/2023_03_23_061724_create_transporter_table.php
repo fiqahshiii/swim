@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('transporter', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('scheduledwasteID');
             $table->string('fullname');
             $table->bigInteger('phonenum');
             $table->string('email');
             $table->string('address');
             $table->string('gender');
+            $table->string('platenumber');
+            $table->string('city');
+            $table->string('status');
             $table->timestamps();
         });
     }

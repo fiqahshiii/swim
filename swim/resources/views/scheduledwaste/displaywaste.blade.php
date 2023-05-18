@@ -2,7 +2,7 @@
 
 @section('content')
 <h4>Scheduled Waste</h4>
-<h6>Add New Waste</h6>
+<h6>Display Scheduled Waste</h6>
 
 <!-- message box if the new waste has been added -->
 @if(session()->has('message'))
@@ -10,39 +10,22 @@
     {{ session()->get('message') }}
 </div>
 @endif
-<head>
-    <style>
-        .margin-right {
-        margin-right: 10px !important;
-    }
-    </style>
-
-<script>
-$(document).ready(function(){
-    $(".reset-btn").click(function(){
-        $("#myForm").trigger("reset");
-    });
-});
-</script>
-</head>
+@foreach($wastelist As $key=>$data)
 <div class="card">
     <div class="card-body">
-        
         <!-- form add waste -->
-        <form method="POST" action="{{ route('insertnewwaste') }}" id="wasteform">
-            @csrf
             <div class="row">
                 <div class="col">
                     <div class="row">
                         <div class="col">
                         <div class="col">
                             <label>WASTE CODE</label>
-                            <input type="text" name="wastecode" class="form-control" placeholder="SW ***" required>
+                            <input type="text" name="wastecode" class="form-control" value="{{$data->wastecode}}" disabled>
                         </div>
                         </div>
                         <div class="col">
                             <label>WEIGHT (mt)</label>
-                            <input type="number" name="weight" class="form-control" placeholder="Weight" required>
+                            <input type="number" name="weight" class="form-control" value="{{$data->weight}}" disabled>
                         </div>
                     </div>
                     <br>
@@ -50,12 +33,12 @@ $(document).ready(function(){
                         <div class="col">
                         <div class="col">
                             <label>WASTE DESCRIPTION</label>
-                            <input type="text" name="wastedescription" class="form-control" placeholder="Waste Description" required>
+                            <input type="text" name="wastedescription" class="form-control" value="{{$data->wastedescription}}" disabled>
                         </div>
                         </div>
                         <div class="col">
                             <label>DISPOSAL SITE</label>
-                            <input type="text" name="disposalsite" class="form-control" placeholder="Disposal Site" required>
+                            <input type="text" name="disposalsite" class="form-control" value="{{$data->disposalsite}}"disabled>
                         </div>
                     </div>
                     <br>
@@ -63,17 +46,12 @@ $(document).ready(function(){
                         <div class="col">
                         <div class="col">
                             <label>WASTE TYPE</label>
-                            <input type="text" name="wastetype" class="form-control" placeholder="Waste type" required>
+                            <input type="text" name="wastetype" class="form-control" value="{{$data->wastetype}}" disabled>
                         </div>
                         </div>
                         <div class="col">
                             <label>TYPE OF PACKAGING</label>
-                            <select class="form-control" name="packaging">
-                                    <option value="">TYPE OF PACKAGING</option>
-                                    <option value="JumboBag">Jumbo Bag</option>
-                                    <option value="IBC">IBC</option>
-                                    <option value="Drum">Drum</option>
-                            </select>
+                            <input type="text" name="disposalsite" class="form-control" value="{{$data->packaging}}" disabled>
                         </div>
                     </div>
                     <br>
@@ -81,62 +59,44 @@ $(document).ready(function(){
                         <div class="col">
                         <div class="col">
                             <label>PHYSICAL STATE</label>
-                            <select class="form-control" name="state">
-                                    <option value="">PHYSICAL STATE</option>
-                                    <option value="Solid">Solid</option>
-                                    <option value="Gas">Gas</option>
-                                    <option value="Liquid">Liquid</option>
-                            </select>                       
+                            <input type="text" name="disposalsite" class="form-control" value="{{$data->state}}" disabled>                      
                         </div>
                         </div>
                         <div class="col">
                             <label>DISPOSAL STATUS</label>
-                            <select class="form-control" name="statusDisposal">
-                                    <option value="">DISPOSAL STATUS</option>
-                                    <option value="Disposed">Disposed</option>
-                                    <option value="Pending">Pending</option>
-                            </select>
+                            <input type="text" name="disposalsite" class="form-control" value="{{$data->statusDisposal}}" disabled>
+
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
                             <label>WASTE GENERATED DATE</label>
-                            <input type="date" name="wasteDate" class="form-control" id="wasteDate" required>
+                            <input type="date" name="wasteDate" class="form-control" id="txtDate" value="{{$data->wasteDate}}" disabled>
                         </div>
                         <div class="col">
                             <label>PERSON IN CHARGE</label>
-                            <input type="text" name="pic" class="form-control" placeholder="Person in Charge Name" required>
+                            <input type="text" name="pic" class="form-control" placeholder="Person in Charge Name" value="{{$data->pic}}" disabled>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
                             <label>WASTE EXPIRED DATE</label>
-                            <input type="date" name="expiredDate" class="form-control" id="expiredDate" required><br>
-
+                            <input type="date" name="expiredDate" class="form-control" id="txtDate" value="{{$data->expiredDate}}" disabled>
                         </div>
+                        @endforeach
+          
                         <div class="col">
                             <label>TRANSPORTER</label>
-                            <select class="form-control" name="transporter">
-                            @foreach($transporterlist As $key=>$data)
-                                    <option value="{{ $data->fullname }}">{{ $data->fullname }}</option>
-                            @endforeach
-                                
-                            </select>                       
+                            <input type="text" name="transporter" class="form-control" value="{{ $data->transporter}}" disabled>
                          </div>
                     </div>
                     <br>
-                </div>
-                
+                </div> 
             </div>
-            <input type="submit" name="SubmitWaste" class="btn btn-primary btn-bg-color btn-sm col-xs-2 margin-right" id="wasteform" style="float: right;" onclick="startCountdown()">
-            
-
-            
-        </form>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editwaste', $data->id) }}">Edit</a>
     </div>
-
 </div>
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
@@ -179,15 +139,5 @@ $(document).ready(function(){
         var maxDate = year + '-' + month + '-' + day;
         $('#txtDate').attr('min', maxDate);
     });
-
-   
-$(document).ready(function(){
-    $(".reset-btn").click(function(){
-        $("#myForm").trigger("reset");
-    });
-});
-
 </script>
-
-
 @endsection
