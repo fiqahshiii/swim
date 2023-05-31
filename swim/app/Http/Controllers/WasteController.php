@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Mail\MyTestMail;
 
 use App\Models\scheduledwaste;
 
@@ -17,7 +20,11 @@ class WasteController extends Controller
        
             ->get();
 
-        return view('scheduledwaste.wasteEmp', compact('transporterlist'));
+            $userlist = DB::table('users')
+       
+            ->get();
+
+        return view('scheduledwaste.wasteEmp', compact('transporterlist','userlist'));
     }
 
     public function EditWaste(Request $request, $id)
@@ -62,7 +69,8 @@ class WasteController extends Controller
     public function ListWaste()
     {
         $wastelist = DB::table('scheduledwaste')
-        ->orderBy('id', 'asc')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        // ->orderBy('id', 'asc')
         ->get();
 
         $wasteData = [];
@@ -83,6 +91,63 @@ class WasteController extends Controller
         
        
         return view('scheduledwaste.swlist', compact('wastelist', 'wasteData'));
+        
+    }
+
+    public function pendingWaste()
+    {
+        $wastelist = DB::table('scheduledwaste')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        // ->orderBy('id', 'asc')
+        ->get();
+
+        $wasteData = [];
+
+        foreach ($wastelist as $waste) {
+            // Set the timezone to Kuala Lumpur
+            $kl_timezone = 'Asia/Kuala_Lumpur';
+
+            // Get today's date in Kuala Lumpur timezone
+            $today_date = Carbon::now($kl_timezone);
+            $expiredWasteDate = Carbon::parse($waste->expiredDate);
+            $diffInDays = $today_date->diffInDays($expiredWasteDate);
+        
+            $wasteData[] = [
+                'diffInDays' => $diffInDays
+            ];
+        }
+        
+       
+        return view('scheduledwaste.pendingsw', compact('wastelist', 'wasteData'));
+        
+    }
+
+    public function disposedWaste()
+    {
+        $wastelist = DB::table('scheduledwaste')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        // ->orderBy('id', 'asc')
+        ->get();
+
+        $wasteData = [];
+
+        foreach ($wastelist as $waste) {
+            // Set the timezone to Kuala Lumpur
+            $kl_timezone = 'Asia/Kuala_Lumpur';
+
+            // Get today's date in Kuala Lumpur timezone
+            $today_date = Carbon::now($kl_timezone);
+            $expiredWasteDate = Carbon::parse($waste->expiredDate);
+            $diffInDays = $today_date->diffInDays($expiredWasteDate);
+        
+            $wasteData[] = [
+                'diffInDays' => $diffInDays
+            ];
+        }
+        
+       
+        return view('scheduledwaste.disposedsw', compact('wastelist', 'wasteData'));
+        
     }
 
     public function insertnewwaste(Request $request)
@@ -150,4 +215,63 @@ class WasteController extends Controller
         return view('scheduledwaste.displaywaste', compact('wastelist', 'transporterlist'));        
           
 }
+
+        public function filter()
+        {
+            $wastelist = DB::table('scheduledwaste')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        // ->orderBy('id', 'asc')
+        ->get();
+
+        $wasteData = [];
+
+        foreach ($wastelist as $waste) {
+            // Set the timezone to Kuala Lumpur
+            $kl_timezone = 'Asia/Kuala_Lumpur';
+
+            // Get today's date in Kuala Lumpur timezone
+            $today_date = Carbon::now($kl_timezone);
+            $expiredWasteDate = Carbon::parse($waste->expiredDate);
+            $diffInDays = $today_date->diffInDays($expiredWasteDate);
+        
+            $wasteData[] = [
+                'diffInDays' => $diffInDays
+            ];
+        }
+        
+       
+        return view('scheduledwaste.filteredsw', compact('wastelist', 'wasteData'));
+        }
+
+        public function getEmail(Request $request, $id)
+        {
+
+            $user = DB::table('scheduledwaste')
+            ->join ('users', 'users.id','=','scheduledwaste.pic')
+            ->select([
+                'name', 'email'
+            ])
+            ->where('users.id', $id)
+            ->first();
+
+            $to = [
+
+                [
+                    'email' => $user->email,
+                ]
+
+            ];
+
+            //send email
+            $data = [
+                
+                'name' => $user->name,
+            ];
+           
+            Mail::to($to)->send(new MyTestMail($data));
+            
+            return back()->with('success', 'Email Successfully Sent.');
+           
+        }     
+  
 }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('statusDisposal');
             $table->date('wasteDate');
-            $table->string('pic');
+            $table->bigInteger('pic');
             $table->date('expiredDate');
             $table->string('transporter');
             $table->string('diff')->nullable();

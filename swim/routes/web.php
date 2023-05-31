@@ -33,12 +33,22 @@ Route::get('/viewacc/{id}', [App\Http\Controllers\AccountController::class, 'Acc
 Route::put('/updateprofile/{id}', [App\Http\Controllers\AccountController::class, 'UpdateProfile'])->name('updateprofile');//account nama dekat route sidenav
 //scheduled waste , docs
 Route::get('/wastelist', [App\Http\Controllers\WasteController::class, 'ListWaste'])->name('swlist');
+Route::get('/pendingsw', [App\Http\Controllers\WasteController::class, 'pendingWaste'])->name('pendingsw');
+Route::get('/disposedsw', [App\Http\Controllers\WasteController::class, 'disposedWaste'])->name('disposedsw');
 Route::get('/newwaste', [App\Http\Controllers\WasteController::class, 'NewWaste'])->name('wasteEmp');//wasteEmp--> tak kisah nama apa2 yang kita nak panggil tu dekat next page
 Route::post('/insertnewwaste', [App\Http\Controllers\WasteController::class, 'insertnewwaste'])->name('insertnewwaste');
 Route::delete('/deleteWaste/{id}', [App\Http\Controllers\WasteController::class, 'deletewaste'])->name('deletewaste');//account nama dekat route sidenav
 Route::get('/displayWaste/{id}', [App\Http\Controllers\WasteController::class, 'displaywaste'])->name('displaywaste');//account nama dekat route sidenav
 Route::get('/editWaste/{id}', [App\Http\Controllers\WasteController::class, 'EditWaste'])->name('editwaste');//account nama dekat route sidenav
 Route::put('/UpdatedWaste/{id}', [App\Http\Controllers\WasteController::class, 'UpdatedWaste'])->name('updatedwaste');//account nama dekat route sidenav
+//email
+Route::get('/alertEmail/{id}', [App\Http\Controllers\WasteController::class, 'getEmail'])->name('getEmail');//account nama dekat route sidenav
+
+//filtering
+Route::get('/filter', [App\Http\Controllers\WasteController::class, 'filter'])->name('filter');
+Route::get('/getManagerEmail/{id}', [App\Http\Controllers\WasteController::class, 'getManagerEmail']);
+
+
 
 //docs
 Route::get('/filelist', [App\Http\Controllers\DocumentController::class, 'ListofFile'])->name('swfile');
@@ -50,6 +60,7 @@ Route::get('/displayDoc/{id}', [App\Http\Controllers\DocumentController::class, 
 
 //calendar
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'empCalendar'])->name('calendar');
+
 //transporter
 Route::get('/transporterlist', [App\Http\Controllers\TransporterController::class, 'ListTransporter'])->name('translist');
 Route::get('/newtransporter', [App\Http\Controllers\TransporterController::class, 'NewTransporter'])->name('newtransporter');
@@ -59,7 +70,6 @@ Route::post('/inserttransporter', [App\Http\Controllers\TransporterController::c
 Route::get('/userlist', [App\Http\Controllers\AccountController::class, 'UserList'])->name('userlist');
 Route::get('/displayuser/{id}', [App\Http\Controllers\AccountController::class, 'displayUser'])->name('displayuser');//account nama dekat route sidenav
 Route::get('/deleteuser/{id}', [App\Http\Controllers\AccountController::class, 'deleteuser'])->name('deleteUser');//account nama dekat route sidenav
-
 
 
 

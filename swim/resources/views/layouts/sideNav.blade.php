@@ -128,6 +128,14 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('filter*') ? 'active' : '' }}" href="{{ route('filter') }}">
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">filter_alt</i>
+                            <span>Filtering</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('swfile*') ? 'active' : '' }}" href="{{ route('swfile') }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">picture_as_pdf</i>

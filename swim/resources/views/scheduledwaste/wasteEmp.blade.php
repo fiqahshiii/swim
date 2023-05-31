@@ -92,7 +92,7 @@ $(document).ready(function(){
                         <div class="col">
                             <label>DISPOSAL STATUS</label>
                             <select class="form-control" name="statusDisposal">
-                                    <option value="">DISPOSAL STATUS</option>
+                                    <option value="">DISPOSAL STATUS</option>  
                                     <option value="Disposed">Disposed</option>
                                     <option value="Pending">Pending</option>
                             </select>
@@ -106,7 +106,14 @@ $(document).ready(function(){
                         </div>
                         <div class="col">
                             <label>PERSON IN CHARGE</label>
-                            <input type="text" name="pic" class="form-control" placeholder="Person in Charge Name" required>
+                            <select class="form-control" name="pic">
+                            @foreach($userlist As $key=>$data)
+                            @if($data->category === 'Employee')
+                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                            @endif
+                            @endforeach
+                                
+                            </select>  
                         </div>
                     </div>
                     <br>

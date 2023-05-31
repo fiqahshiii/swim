@@ -71,16 +71,31 @@
                     }
                 },
 
-                events: {
+               events: {
                     url: "{{ route('calendar') }}",
                     type: 'GET',
-                }
-
-            });
+                    error: function() {
+                        alert('Error fetching events');
+                    },
+                },
+                eventRender: function(event, element) {
+                    // Add a data attribute to the event element
+                    element.attr('data-event-id', event.id);
+                },
+                eventClick: function(event, jsEvent, view) {
+                var eventId = event.id; // Get the event ID directly from the event object
+                var url = "{{ route('displaywaste', ['id' => ':id']) }}";
+                url = url.replace(':id', eventId);
+                window.location.href = url;
+            }
+        });
 
 
         });
+
+        
     </script>
+    
 
 </body>
 @endsection

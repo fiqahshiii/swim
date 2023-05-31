@@ -30,7 +30,9 @@
         .red-text {
             color: red;
         }
-   
+        .action-cell {
+        width: 200px;
+    }
 </style>
 </head>
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
@@ -66,25 +68,20 @@ $(document).ready(function() {
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
-            <div class=" {{  auth()->user()->category== 'Employee' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('swlist') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
+            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('filter') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
                 <nav class="">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('swlist') ? 'active' : '' }}" href="{{ route('swlist') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
+                            <a class="nav-link {{ request()->routeIs('filter') ? 'active' : '' }}" href="{{ route('filter') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('pendingsw') ? '' : '' }}" href="{{ route('pendingsw') }}" role="tab" aria-selected="true">Pending Scheduled Waste</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('disposedsw') ? '' : '' }}" href="{{ route('disposedsw') }}" role="tab" aria-selected="true">Disposed Scheduled Waste</a>
-                        </li>
+                       
                     </ul>
                 </nav>
             </div>
 
-            @if( auth()->user()->category== "Employee")
+            @if( auth()->user()->category== "Manager")
 
-            @if(request()->routeIs('swlist'))
+            @if(request()->routeIs('filter'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
             <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
                 <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('wasteEmp') }}">
@@ -106,7 +103,7 @@ $(document).ready(function() {
         
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
-                @if( auth()->user()->category== "Employee" || auth()->user()->category== "Manager" || auth()->user()->category== "Admin")
+                @if( auth()->user()->category== "Manager")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -117,29 +114,32 @@ $(document).ready(function() {
                             <th>Day Remaining</th> 
                             <th>Person In Charge</th>
                             <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         
                     @foreach($wastelist as $index => $data)
-                    <tr id="row{{$data->id}}">
-                        <td>{{ $data->id }}</td>
-                        <td class="{{ $wasteData[$index]['diffInDays'] < 5 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
-                        <td>{{ $data->wastecode }}</td>
-                        <td>{{ $data->statusDisposal }}</td>
-                        <td>
+
+                        <tr id="row{{$data->id}}">
+                            <td>{{ $data->id }}</td>
+                            <td class="{{ $wasteData[$index]['diffInDays'] < 5 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
+                            <td>{{ $data->wastecode }}</td>
+                            <td>{{ $data->statusDisposal }}</td>
+                            <td>
                             @if(isset($wasteData[$index]))
                                 {{ $wasteData[$index]['diffInDays'] }} days
                             @endif
-                        </td>
-                        <td>{{ $data->name }}</td>
-                        <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
-                        </td>                        
-                    </tr>
-                @endforeach
-
+                            </td>
+                            <td>{{ $data->name }}</td>
+                            <td class="action-cell">
+                                <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
+                                <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
+                                <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background:#33cc33" type="button"><i class="material-icons" style="color:white">email</i></button></a>
+                            </td>
+                      
+                        </tr>
+                    @endforeach
                 </tbody>
                 
                 </table>
@@ -254,9 +254,6 @@ function deleteItem(e) {
 </script>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
-<Script>
-
-</script>
 
 <script>
     $(document).ready(function() {
@@ -273,9 +270,6 @@ function deleteItem(e) {
             }
         }
     });
-</script>
-<script>
-
 </script>
 
 <script>
