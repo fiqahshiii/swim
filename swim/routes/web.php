@@ -31,6 +31,14 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'load
 //user
 Route::get('/viewacc/{id}', [App\Http\Controllers\AccountController::class, 'AccountSetting'])->name('account');//account nama dekat route sidenav
 Route::put('/updateprofile/{id}', [App\Http\Controllers\AccountController::class, 'UpdateProfile'])->name('updateprofile');//account nama dekat route sidenav
+
+//Attendnace
+Route::get('/attendance', [App\Http\Controllers\AccountController::class, 'attendance'])->name('attendance');
+Route::post('/checkIn', [App\Http\Controllers\AccountController::class, 'checkIn'])->name('checkIn');
+Route::get('/checkOut/{id}', [App\Http\Controllers\AccountController::class, 'checkOut'])->name('checkOut');
+Route::get('/EmpAttendance', [App\Http\Controllers\AccountController::class, 'ListAttendance'])->name('EmpAttendance');
+
+
 //scheduled waste , docs
 Route::get('/wastelist', [App\Http\Controllers\WasteController::class, 'ListWaste'])->name('swlist');
 Route::get('/pendingsw', [App\Http\Controllers\WasteController::class, 'pendingWaste'])->name('pendingsw');
@@ -55,6 +63,7 @@ Route::get('/filelist', [App\Http\Controllers\DocumentController::class, 'Listof
 Route::get('/newfilelist', [App\Http\Controllers\DocumentController::class, 'NewFile'])->name('newSOPfile');
 Route::post('/insertDoc', [App\Http\Controllers\DocumentController::class, 'insertdocument'])->name('insertDoc');
 Route::get('/displayDoc/{id}', [App\Http\Controllers\DocumentController::class, 'displayDoc'])->name('displayDoc');//account nama dekat route sidenav
+Route::delete('/deleteFile/{id}', [App\Http\Controllers\DocumentController::class, 'deletefile'])->name('deletefile');//account nama dekat route sidenav
 
 
 
@@ -65,6 +74,10 @@ Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'empCal
 Route::get('/transporterlist', [App\Http\Controllers\TransporterController::class, 'ListTransporter'])->name('translist');
 Route::get('/newtransporter', [App\Http\Controllers\TransporterController::class, 'NewTransporter'])->name('newtransporter');
 Route::post('/inserttransporter', [App\Http\Controllers\TransporterController::class, 'inserttransporter'])->name('inserttransporter');
+Route::get('/displaytransporter/{id}', [App\Http\Controllers\TransporterController::class, 'displaytrans'])->name('displaytrans');//account nama dekat route sidenav
+Route::get('/editTransporter/{id}', [App\Http\Controllers\TransporterController::class, 'EditTransporter'])->name('editTransList');//account nama dekat route sidenav
+Route::put('/UpdatedTransporter/{id}', [App\Http\Controllers\TransporterController::class, 'UpdatedTrans'])->name('UpdatedTrans');//account nama dekat route sidenav
+Route::delete('/deleteTransporter/{id}', [App\Http\Controllers\TransporterController::class, 'deleteTransporter'])->name('deleteTransporterv');//account nama dekat route sidenav
 
 //admin
 Route::get('/userlist', [App\Http\Controllers\AccountController::class, 'UserList'])->name('userlist');

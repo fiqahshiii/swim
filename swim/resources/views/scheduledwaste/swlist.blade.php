@@ -1,6 +1,7 @@
 @extends('layouts.sideNav')
 
 @section('content')
+<br><h4>Scheduled Waste List</h4>
 <head>
 <style>
     .overlay{
@@ -13,9 +14,7 @@
         z-index: 999;
         background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
     }
-    body{
-        text-align: center;
-    }
+    
     /* Turn off scrollbar when body element has the loading class */
     body.loading{
         overflow: hidden;   
@@ -29,6 +28,11 @@
         /* Add a CSS class to change the color to red */
         .red-text {
             color: red;
+        }
+        h4{
+            font-family: Tahoma, Verdana, sans-serif;  
+            font-size: 30px;
+            /* color: white; */
         }
    
 </style>
@@ -87,8 +91,8 @@ $(document).ready(function() {
             @if(request()->routeIs('swlist'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
             <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
-                <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('wasteEmp') }}">
-                    <i class="fas fa-plus"></i>&nbsp; Create New Waste</a>
+                <a class="btn btn-primary" style="float: right; background: #4775d1;" role="button" href="{{ route('wasteEmp') }}" >
+                    <i class="fas fa-plus" ></i>&nbsp; Create New Waste</a>
             </div>
             @else
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
@@ -123,19 +127,19 @@ $(document).ready(function() {
                         
                     @foreach($wastelist as $index => $data)
                     <tr id="row{{$data->id}}">
-                        <td>{{ $data->id }}</td>
-                        <td class="{{ $wasteData[$index]['diffInDays'] < 5 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
+                        <td>{{ $data->swListID }}</td>
+                        <td class="{{ $wasteData[$index]['diffInDays'] < 10 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
                         <td>{{ $data->wastecode }}</td>
                         <td>{{ $data->statusDisposal }}</td>
                         <td>
                             @if(isset($wasteData[$index]))
-                                {{ $wasteData[$index]['diffInDays'] }} days
+                                {{ $wasteData[$index]['diffInDays'] }} day/days
                             @endif
                         </td>
                         <td>{{ $data->name }}</td>
                         <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
+                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1;">View</a>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
                         </td>                        
                     </tr>
                 @endforeach
@@ -226,7 +230,7 @@ function deleteItem(e) {
                         if (data.success) {
                             swalWithBootstrapButtons.fire(
                                 'Deleted!',
-                                'User account has been deleted.',
+                                'scheduled Waste has been deleted.',
                                 "success"
                             );
 
@@ -252,6 +256,8 @@ function deleteItem(e) {
 
 }
 </script>
+
+
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <Script>

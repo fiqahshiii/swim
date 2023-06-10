@@ -72,7 +72,7 @@ $(document).ready(function() {
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('pendingsw') ? '' : '' }}" href="{{ route('pendingsw') }}" role="tab" aria-selected="true">Pending Scheduled Waste</a>
+                            <a class="nav-link {{ request()->routeIs(' ') ? '' : '' }}" href="{{ route('pendingsw') }}" role="tab" aria-selected="true">Pending Scheduled Waste</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('disposedsw') ? 'active' : '' }}" href="{{ route('disposedsw') }}" role="tab" aria-selected="true">Disposed Scheduled Waste</a>
@@ -131,7 +131,7 @@ $(document).ready(function() {
                                         {{ $wasteData[$index]['diffInDays'] }} days
                                     @endif
                                 </td>
-                                <td>{{ $data->pic }}</td>
+                                <td>{{ $data->name }}</td>
                                 <td>
                                     <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
                                     <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>

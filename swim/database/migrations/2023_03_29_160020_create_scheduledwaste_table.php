@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('wasteDate');
             $table->bigInteger('pic');
             $table->date('expiredDate');
-            $table->string('transporter');
+            $table->bigInteger('transporter');
             $table->string('diff')->nullable();
 
             $table->timestamps();

@@ -13,9 +13,7 @@
         z-index: 999;
         background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
     }
-    body{
-        text-align: center;
-    }
+   
     /* Turn off scrollbar when body element has the loading class */
     body.loading{
         overflow: hidden;   
@@ -33,6 +31,45 @@
         .action-cell {
         width: 200px;
     }
+
+    .dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
 </style>
 </head>
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
@@ -64,6 +101,9 @@ $(document).ready(function() {
 });
 </script>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <div class="card">
     <div class="card-header pb-0">
@@ -74,38 +114,37 @@ $(document).ready(function() {
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('filter') ? 'active' : '' }}" href="{{ route('filter') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
                         </li>
-                       
                     </ul>
                 </nav>
             </div>
+            
 
-            @if( auth()->user()->category== "Manager")
-
-            @if(request()->routeIs('filter'))
-            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-            <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
-                <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('wasteEmp') }}">
-                    <i class="fas fa-plus"></i>&nbsp; Create New Waste</a>
+            @if(auth()->user()->category== "Manager" && !request()->routeIs('filter'))
+        <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Actions
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action 1</a>
+                    <a class="dropdown-item" href="#">Action 2</a>
+                    <a class="dropdown-item" href="#">Action 3</a>
+                </div>
             </div>
-            @else
-            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-                <a class="btn btn-success" style="float: right; width:100%;" role="button" href="">
-                    <i class="fa fa-cog"></i>&nbsp; -</a>
-            </div>
-            @endif
-
-            @endif
+        </div>
+        @endif
 
         </div>
     </div>
-
     <div class="card-body">
         
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
+                
                 @if( auth()->user()->category== "Manager")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead >
+                        
                         <tr>
                             <th>ID</th>
                             <th>Disposal Date</th>
@@ -135,7 +174,7 @@ $(document).ready(function() {
                             <td class="action-cell">
                                 <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
                                 <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
-                                <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background:#33cc33" type="button"><i class="material-icons" style="color:white">email</i></button></a>
+                                <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background: #002b80; color: white;" type="button" >Email</button></a>
                             </td>
                       
                         </tr>
@@ -143,7 +182,15 @@ $(document).ready(function() {
                 </tbody>
                 
                 </table>
-                
+                <div class="dropdown">
+    <button class="dropbtn">Dropdown Button</button>
+    <div class="dropdown-content">
+        <a href="#">Action 1</a>
+        <a href="#">Action 2</a>
+        <a href="#">Action 3</a>
+    </div>
+</div>
+
                 @endif
                 
             </div>
@@ -288,6 +335,7 @@ function deleteItem(e) {
         }
     });
 </script>
+
 
 
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Transporter;
 
 class TransporterController extends Controller
 
@@ -27,24 +28,27 @@ class TransporterController extends Controller
           // get user auth
           $id = Auth::user()->id;
           $fullname = $request->input('fullname');
-          $Address = $request->input('Address');
-          $city = $request->input('city');
-          $platenumber = $request->input('platenumber');
-          $gender = $request->input('gender');
-          $email = $request->input('email');
           $phonenum = $request->input('phonenum');
+          $email = $request->input('email');
+          $companyname = $request->input('companyname');
+          $remarks = $request->input('remarks');
+          $platenumber = $request->input('platenumber');
+          $city = $request->input('city');
+          $address = $request->input('address');
           $status = $request->input('status');
   
   
           $data = array(
              
               'fullname' => $fullname,
-              'address' => $Address,
-              'city' => $city,
-              'platenumber' => $platenumber,
-              'gender' => $gender,
-              'email' => $email,
               'phonenum' => $phonenum,
+              'email' => $email,
+              'companyname' => $companyname,
+              'remarks' => $remarks,
+              'platenumber' => $platenumber,
+              'city' => $city,              
+              'address' => $address,
+              'city' => $city,
               'status' => $status,
   
           );
@@ -55,4 +59,58 @@ class TransporterController extends Controller
           return redirect()->route('translist');
           
     }
+
+    public function displaytrans(Request $request, $id)
+    {        
+        $translist = Transporter::find($id);
+
+        return view('transporter.displaytrans', compact ('translist'));        
+          
+    }
+
+    public function EditTransporter(Request $request, $id)
+{
+    $translist = DB::table('transporter')
+        ->where('id', $id)
+        ->first();
+
+    return view('transporter.editTransList', compact('translist'));
+}
+
+
+    public function UpdatedTrans(Request $request, $id)
+    {
+
+        // find the id from proposal
+        $translist = Transporter::find($id);
+     
+        $translist->fullname = $request->input('fullname');
+        $translist->phonenum = $request->input('phonenum');
+        $translist->email = $request->input('email');
+        $translist->companyname = $request->input('companyname');
+        $translist->remarks = $request->input('remarks');
+        $translist->platenumber = $request->input('platenumber');
+        $translist->city = $request->input('city');
+        $translist->address = $request->input('address');
+        $translist->status = $request->input('status');
+       
+        // upadate query in the database
+        $translist->update();
+
+        // display message box in the same page
+        return redirect()->back()->with('message', 'Product Updated Successfully');
+        
+    }
+
+    public function deleteTransporter(Request $request, $id)
+    {
+       
+
+        if ($request->ajax()) {
+
+            transporter::where('id', '=', $id)->delete();
+            return response()->json(array('success' => true));
+        }
+    }
+
 }

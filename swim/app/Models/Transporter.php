@@ -14,10 +14,11 @@ class Transporter extends Model
         'fullname',
         'phonenum',
         'email',
-        'address',
-        'gender',
+        'companyname',
+        'remarks',
         'platenumber',
         'city',
+        'address',
         'status', 
     ];
 }

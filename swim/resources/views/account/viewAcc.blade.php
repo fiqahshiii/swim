@@ -1,14 +1,23 @@
 @extends('layouts.sideNav')
 @section('content')
 <h4>Update Profile</h4>
+<h3>User Profile</h3>
 
 <head>
     <style>
         h4{
-            font-family: "Copperplate", fantasy;
-            font-size: 30px;
+            font-family: Tahoma, Verdana, sans-serif;           
+            font-size: 25px;
             /* color: white; */
         }
+        h3{
+            font-family: Tahoma, Verdana, sans-serif;           
+            font-size: 15px;
+            /* color: white; */
+        }
+        input[type=text]{
+        text-transform: capitalize;
+    }
     </style>
 </head>
 
@@ -42,9 +51,7 @@
                                 <center><label>PROFILE PHOTO</label><br>
                                 <!-- to preview the file from the input type in div -->
                                 <img src="/assets/{{$user->image}}" width="180px" height="240" style="float: middle; border-radius:50%"></center>
-                                <input type="file" name="image" id="image" accept="image/*" onchange="loadImage(this)" value="{{$user->image}}" style="color: orange;">
-                               
-
+                                <input type="file" name="image" id="image" accept="image/*" onchange="loadImage(this)" value="{{$user->image}}" style="color: white;">
                                 </div>  
                             </div> 
                         </div>           
@@ -101,16 +108,16 @@
                     </div>
 
                     <div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-</div>
-            <!-- end of modal -->
-            
-        </form>
-           
-    </div>
-</div>
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01">
+                    <div id="caption"></div>
+                    </div>
+                                <!-- end of modal -->
+                                
+                            </form>
+                            
+                        </div>
+                    </div>
 
 @endsection
 

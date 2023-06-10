@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+      input[type=text]{
+        text-transform: capitalize;
+    }
+</style>
+  
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

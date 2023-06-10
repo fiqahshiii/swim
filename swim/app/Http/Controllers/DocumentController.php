@@ -61,4 +61,15 @@ class DocumentController extends Controller
         return view('scheduledwaste.displayDoc', compact('document'));
         
     }
+
+    public function deletefile(Request $request, $id)
+    {
+       
+
+        if ($request->ajax()) {
+
+            document::where('id', '=', $id)->delete();
+            return response()->json(array('success' => true));
+        }
+    }
 }

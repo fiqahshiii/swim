@@ -73,6 +73,14 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('attendance*') ? 'active' : '' }}" href="{{ route('attendance') }}"> 
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">schedule</i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('account*') ? 'active' : '' }}" href="{{ route('account', Auth::user()->id) }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">settings</i>
@@ -97,6 +105,14 @@
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">picture_as_pdf</i>
                             <span>SW S.O.P File</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('attendance*') ? 'active' : '' }}" href="{{ route('attendance') }}"> 
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">schedule</i>
+                            <span>Attendance</span>
                         </a>
                     </li>
 
@@ -146,9 +162,26 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">
                             <!-- //work icon -->
-                            <i class="material-icons">date_range</i>
+                            <i class="material-icons" style="color:black">date_range</i>
                             <span>Calendar</span>
                         </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('attendance*') ? 'active' : '' }}" data-toggle="collapse" data-target="#appointmentSubMenu">
+                            <i class="material-icons" style="color:black">schedule</i>
+                            <span>Attendance</span>
+                        </a>
+                        <div class="collapse" id="appointmentSubMenu" style="margin-left: 20px">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">Record Attendance</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('EmpAttendance') ? 'active' : '' }}" href="{{ route('EmpAttendance') }}">Employee Attendance</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -157,6 +190,7 @@
                             <i class="material-icons" style="color:black">settings</i>
                             <span>Account Setting</span>
                         </a>
+                        
                     </li>
 
                     @endif
@@ -244,5 +278,14 @@
 
 <!-- End Page Header -->
 
-
+<script>
+// JavaScript code to toggle the collapse functionality
+document.addEventListener('DOMContentLoaded', function() {
+    var navLink = document.querySelector('.nav-link');
+    var submenu = document.querySelector('.collapse');
+    navLink.addEventListener('click', function() {
+        submenu.classList.toggle('show');
+    });
+});
+</script>
 @endsection

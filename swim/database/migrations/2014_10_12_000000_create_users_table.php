@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('category');
             $table->string('image')->nullable();
-            
+        
             $table->rememberToken();
             $table->timestamps();
         });

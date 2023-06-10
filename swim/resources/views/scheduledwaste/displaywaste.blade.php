@@ -6,11 +6,11 @@
 
 <!-- message box if the new waste has been added -->
 @if(session()->has('message'))
-<div class="alert alert-success">   
+<div class="alert alert-success">    
     {{ session()->get('message') }}
 </div>
 @endif
-@foreach($wastelist As $key=>$data)
+@foreach($wastelist as $index => $data)
 <div class="card">
     <div class="card-body">
         <!-- form add waste -->
@@ -19,12 +19,12 @@
                     <div class="row">
                         <div class="col">
                         <div class="col">
-                            <label>WASTE CODE</label>
+                            <label>Waste Code</label>
                             <input type="text" name="wastecode" class="form-control" value="{{$data->wastecode}}" disabled>
                         </div>
                         </div>
                         <div class="col">
-                            <label>WEIGHT (mt)</label>
+                            <label>Weight(mt)</label>
                             <input type="number" name="weight" class="form-control" value="{{$data->weight}}" disabled>
                         </div>
                     </div>
@@ -32,12 +32,12 @@
                     <div class="row">
                         <div class="col">
                         <div class="col">
-                            <label>WASTE DESCRIPTION</label>
+                            <label>Waste Description</label>
                             <input type="text" name="wastedescription" class="form-control" value="{{$data->wastedescription}}" disabled>
                         </div>
                         </div>
                         <div class="col">
-                            <label>DISPOSAL SITE</label>
+                            <label>Disposal Site</label>
                             <input type="text" name="disposalsite" class="form-control" value="{{$data->disposalsite}}"disabled>
                         </div>
                     </div>
@@ -45,12 +45,12 @@
                     <div class="row">
                         <div class="col">
                         <div class="col">
-                            <label>WASTE TYPE</label>
+                            <label>Waste Type</label>
                             <input type="text" name="wastetype" class="form-control" value="{{$data->wastetype}}" disabled>
                         </div>
                         </div>
                         <div class="col">
-                            <label>TYPE OF PACKAGING</label>
+                            <label>Type Of Packaging</label>
                             <input type="text" name="disposalsite" class="form-control" value="{{$data->packaging}}" disabled>
                         </div>
                     </div>
@@ -58,12 +58,12 @@
                     <div class="row">
                         <div class="col">
                         <div class="col">
-                            <label>PHYSICAL STATE</label>
+                            <label>Physical State</label>
                             <input type="text" name="disposalsite" class="form-control" value="{{$data->state}}" disabled>                      
                         </div>
                         </div>
                         <div class="col">
-                            <label>DISPOSAL STATUS</label>
+                            <label>Disposal Status</label>
                             <input type="text" name="disposalsite" class="form-control" value="{{$data->statusDisposal}}" disabled>
 
                         </div>
@@ -71,33 +71,33 @@
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label>WASTE GENERATED DATE</label>
+                            <label>Waste Generated Date</label>
                             <input type="date" name="wasteDate" class="form-control" id="txtDate" value="{{$data->wasteDate}}" disabled>
                         </div>
                         <div class="col">
-                            <label>PERSON IN CHARGE</label>
-                            <input type="text" name="pic" class="form-control" placeholder="Person in Charge Name" value="{{$data->pic}}" disabled>
+                            <label>Person In Charge</label>
+                            <input type="text" name="pic" class="form-control" placeholder="Person in Charge Name" value="{{$data->name}}" disabled>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label>WASTE EXPIRED DATE</label>
+                            <label>Waste Expired Date</label>
                             <input type="date" name="expiredDate" class="form-control" id="txtDate" value="{{$data->expiredDate}}" disabled>
                         </div>
-                        @endforeach
           
                         <div class="col">
-                            <label>TRANSPORTER</label>
-                            <input type="text" name="transporter" class="form-control" value="{{ $data->transporter}}" disabled>
+                            <label>Transporter</label>
+                            <input type="text" name="transporter" class="form-control" value="{{ $data->fullname}}" disabled>
                          </div>
                     </div>
                     <br>
                 </div> 
             </div>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editwaste', $data->id) }}">Edit</a>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editwaste', $data->swListID) }}">Edit</a>
     </div>
-</div>
+</div><br>
+@endforeach
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

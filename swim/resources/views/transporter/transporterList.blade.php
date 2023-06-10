@@ -56,7 +56,7 @@
 
             @if(request()->routeIs('translist'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-                <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('newtransporter') }}">
+                <a class="btn btn-primary" style="float: right; " role="button" href="{{ route('newtransporter') }}">
                     <i class="fas fa-plus"></i>&nbsp; Create New Transporter</a>
             </div>
             @else
@@ -96,7 +96,9 @@
                             <td>{{ $data->platenumber }}</td>
                             <td>{{ $data->phonenum }}</td>
                             <td>{{ $data->status }}</td>
-                            <td><button type="button" class="btn btn-primary">View</button> <button type="button" class="btn btn-danger">Delete</button></td>
+                            <td>
+                            <a type="button" class="btn btn-primary" href="{{ route('displaytrans', $data->id) }}">View</a>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
                           
                         </tr>
                         @endforeach
@@ -110,10 +112,69 @@
     </div>
 
 
-</div>
+</div><br>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
-<Script>
+<script>
+function deleteItem(e) {
+    let id = e.getAttribute('data-id');
+    let name = e.getAttribute('data-name');
 
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ml-1',
+            cancelButton: 'btn btn-danger mr-1'
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        html: "Name: " + name + "<br> You won't be able to revert this!",
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '{{url("/deleteTransporter")}}/' + id,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'User account has been deleted.',
+                                "success"
+                            );
+
+                            $("#row" + id).remove(); // you can add name div to remove
+                        }
+
+
+                    }
+                });
+
+            }
+
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            // swalWithBootstrapButtons.fire(
+            //     'Cancelled',
+            //     'Your imaginary file is safe :)',
+            //     'error'
+            // );
+        }
+    });
+
+}
 </script>
 @endsection

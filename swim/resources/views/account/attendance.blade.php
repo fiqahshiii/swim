@@ -1,3 +1,4 @@
+
 @extends('layouts.sideNav')
 
 @section('content')
@@ -41,27 +42,14 @@
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
-            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('swfile') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
-                <nav class="">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('swfile') ? 'active' : '' }}" href="{{ route('swfile') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class=" {{  auth()->user()->category== 'Employee' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('attendance') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
             </div>
 
-            <!-- if user == committee, then have add new appointment button  -->
-            @if( auth()->user()->category== "Manager")
+            @if( auth()->user()->category== "Employee")
 
-            @if(request()->routeIs('swfile'))
-            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-            <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
-                <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('newSOPfile') }}">
-                    <i class="fas fa-plus"></i>&nbsp; Add New File</a>
-            </div>
+            @if(request()->routeIs('attendance'))
             @else
-            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
+            <div class="col-lg-2 col-md-2 col-sm-2" style="float: left;">
                 <a class="btn btn-success" style="float: right; width:100%;" role="button" href="">
                     <i class="fa fa-cog"></i>&nbsp; -</a>
             </div>
@@ -75,30 +63,47 @@
     <div class="card-body">
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
+
+            <div class="col-lg-2 col-md-2 col-sm-2" style="float: left;">
+                @if ($attendList->contains('date', now()->toDateString()))
+                    <button class="btn btn-primary" style="float: right; width:100%; background:#2952a3;" disabled>Check-in</button>
+                @else
+                    <form id="checkInForm" method="post" action="{{ route('checkIn') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-primary" style="float: right; width:100%; background:#2952a3;" role="button">Check-in</button>
+                    </form>
+                @endif
+            </div>
+
+
                 @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee" || auth()->user()->category== "Admin")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Scheduled Waste Code</th>
-                            <th>File Name</th>
-                            <th>Action</th>
+                            <th>Date</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
                         </tr>
                     </thead>
 
+                    @foreach($attendList as $index => $data)
                     <tbody>
-                        @foreach($document As $key=>$data)
                         <tr id="row{{$data->id}}">
-                        <td>{{ $data->id }}</td>
-                        <td>{{ $data->swcode }}</td>
-                        <td>{{ $data->filename }}</td>
-                        <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displayDoc', $data->id)}}">View</a> 
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swcode }}" data-name="{{ $data->filename }}">Delete</button>
-                        </td>
-                         @endforeach
+                            <td>{{ $data->id }}</td>
+                            <td>{{ $data->date }}</td>
+                            <td>{{ $data->checkin }}</td>
+                            <td>
+                                @if ( $data->checkout == null )
+                                <center><a href="{{ route('checkOut', $data->id) }}" class="btn btn-primary" 
+                                style="width:40%; background:#2952a3;" role="button">Check-out</a></center>
+                                @else 
+                                {{ $data->checkout }}
+                                @endif
+                            </td>
                         </tr>
-                    </tbody>
+                        @endforeach
+                </tbody>
                 </table>
 
                 @endif
@@ -171,4 +176,5 @@ function deleteItem(e) {
 
 }
 </script>
+
 @endsection

@@ -84,7 +84,7 @@
                 },
                 eventClick: function(event, jsEvent, view) {
                 var eventId = event.id; // Get the event ID directly from the event object
-                var url = "{{ route('displaywaste', ['id' => ':id']) }}";
+                var url = "{{ route('displaywaste', ['id' => ':id']) }}";                
                 url = url.replace(':id', eventId);
                 window.location.href = url;
             }

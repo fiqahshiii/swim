@@ -16,61 +16,88 @@ class WasteController extends Controller
     // RELATED TO SW
     public function NewWaste()
     {
+        $userlist = DB::table('users')->get();
+    
+        // Get the transporters based on the status condition
         $transporterlist = DB::table('transporter')
-       
+            ->where('status', '!=', 'Non-Available')
             ->get();
-
-            $userlist = DB::table('users')
-       
-            ->get();
-
-        return view('scheduledwaste.wasteEmp', compact('transporterlist','userlist'));
+    
+        // Set the status based on the waste type selection
+        $status = 'Non-Available'; // Default value
+        $wasteType = request('wastetype');
+        if ($wasteType !== 'Non-Available') {
+            $status = 'Available';
+        }
+    
+        return view('scheduledwaste.wasteEmp', compact('transporterlist', 'userlist', 'status'));
     }
+    
 
     public function EditWaste(Request $request, $id)
     {
+         
+        $userlist = DB::table('users')
+        ->get();
+
         $wastelist = DB::table('scheduledwaste')
-            ->where('id',$id)
-            ->get();
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
+        ->select([
+            'users.id AS userID',
+            'transporter.id AS transID',
+            'scheduledwaste.id AS swListID', 'users.*', 'scheduledwaste.*', 'transporter.*'
+        ])
+        ->where('scheduledwaste.id', $id)
+        ->get();
+        
 
-            $transporterlist = DB::table('transporter')
-            ->where('id',$id)
-            ->get();
-
-        return view('scheduledwaste.editwaste', compact('wastelist','transporterlist'));
+        return view('scheduledwaste.editwaste', compact('wastelist', 'userlist'));
     }
+
 
     public function UpdatedWaste(Request $request, $id)
-    {
-        // find the id from proposal
-        $wastelist = scheduledwaste::find($id);
-     
-        $wastelist->wastecode = $request->input('wastecode');
-        $wastelist->weight = $request->input('weight');
-        $wastelist->wastedescription = $request->input('wastedescription');
-        $wastelist->disposalsite = $request->input('disposalsite');
-        $wastelist->wastetype = $request->input('wastetype');
-        $wastelist->packaging = $request->input('packaging');
-        $wastelist->state = $request->input('state');
-        $wastelist->statusDisposal = $request->input('statusDisposal');
-        $wastelist->wasteDate = $request->input('wasteDate');
-        $wastelist->pic = $request->input('pic');
-        $wastelist->expiredDate = $request->input('expiredDate');
-        $wastelist->transporter = $request->input('transporter');
+{
+    $wastelist = ScheduledWaste::find($id);
 
-        // upadate query in the database
-        $wastelist->update();
-
-        // display message box in the same page
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+    // Check if the waste item exists
+    if (!$wastelist) {
+        return response()->json(['success' => false, 'message' => 'Waste item not found.']);
     }
+
+    // Update the waste item with the new values
+    $wastelist->wastecode = $request->input('wastecode');
+    $wastelist->weight = $request->input('weight');
+    $wastelist->wastedescription = $request->input('wastedescription');
+    $wastelist->disposalsite = $request->input('disposalsite');
+    $wastelist->wastetype = $request->input('wastetype');
+    $wastelist->packaging = $request->input('packaging');
+    $wastelist->state = $request->input('state');
+    $wastelist->statusDisposal = $request->input('statusDisposal');
+    $wastelist->wasteDate = $request->input('wasteDate');
+    $wastelist->pic = $request->input('pic');
+    $wastelist->expiredDate = $request->input('expiredDate');
+    $wastelist->transporter = $request->input('transporter');
+    $wastelist->save();
+
+    return response()->json(['success' => true, 'message' => 'Waste item has been updated successfully.']);
+}
+
 
 
     public function ListWaste()
     {
+
+        $currentUser = Auth::user()->id;
+        
         $wastelist = DB::table('scheduledwaste')
         ->join('users', 'users.id','=','scheduledwaste.pic')
-        // ->orderBy('id', 'asc')
+        ->where ('scheduledwaste.pic', '=', $currentUser)
+        ->select([
+            'users.id AS userID',
+            'scheduledwaste.id AS swListID', 
+            'users.*', 'scheduledwaste.*'
+        ])
         ->get();
 
         $wasteData = [];
@@ -90,7 +117,7 @@ class WasteController extends Controller
         }
         
        
-        return view('scheduledwaste.swlist', compact('wastelist', 'wasteData'));
+        return view('scheduledwaste.swlist', compact('wastelist', 'wasteData', 'currentUser'));
         
     }
 
@@ -98,7 +125,10 @@ class WasteController extends Controller
     {
         $wastelist = DB::table('scheduledwaste')
         ->join('users', 'users.id','=','scheduledwaste.pic')
-        // ->orderBy('id', 'asc')
+        ->select([
+            'users.id AS userID',
+            'scheduledwaste.id AS swListID', 'users.*', 'scheduledwaste.*'
+        ])
         ->get();
 
         $wasteData = [];
@@ -126,7 +156,10 @@ class WasteController extends Controller
     {
         $wastelist = DB::table('scheduledwaste')
         ->join('users', 'users.id','=','scheduledwaste.pic')
-        // ->orderBy('id', 'asc')
+        ->select([
+            'users.id AS userID',
+            'scheduledwaste.id AS swListID', 'users.*', 'scheduledwaste.*'
+        ])
         ->get();
 
         $wasteData = [];
@@ -202,17 +235,22 @@ class WasteController extends Controller
         }
     }
 
-    public function displaywaste(Request $request, $id)
-    {           
-        $wastelist = DB::table('scheduledwaste')
-            ->where('id', $id)
-            ->get();
 
-        $transporterlist = DB::table('transporter')
-            ->where('id', $id)
-            ->get();
+    public function displaywaste(Request $request, $id)
+    {        
         
-        return view('scheduledwaste.displaywaste', compact('wastelist', 'transporterlist'));        
+        $wastelist = DB::table('scheduledwaste')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
+        ->select([
+            'users.id AS userID',
+            'transporter.id AS transID',
+            'scheduledwaste.id AS swListID', 'users.*', 'scheduledwaste.*', 'transporter.*'
+        ])
+        ->where('scheduledwaste.id', $id)
+        ->get();
+        
+        return view('scheduledwaste.displaywaste', compact('wastelist'));        
           
 }
 
