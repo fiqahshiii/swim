@@ -72,7 +72,7 @@
                 },
 
                events: {
-                    url: "{{ route('calendar') }}",
+                    url: "{{ route('ManagerCalendar') }}",
                     type: 'GET',
                     error: function() {
                         alert('Error fetching events');

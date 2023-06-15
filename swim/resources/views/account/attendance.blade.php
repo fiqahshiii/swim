@@ -2,7 +2,7 @@
 @extends('layouts.sideNav')
 
 @section('content')
-
+<b><br><h4>Attendance</h4></b>
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script src="{{ asset('frontend') }}/js/dataTables.bootstrap4.js"></script>
 <script src="//code.jquery.com/jquery-1.12.3.js"></script>

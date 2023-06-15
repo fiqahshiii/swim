@@ -3,7 +3,25 @@
 @section('content')
 <h4>Scheduled Waste</h4>
 <h6>Display Scheduled Waste</h6>
-
+<head>
+    <style>
+          @media print {
+    /* Add your print-specific styles here */
+    /* Hide any unnecessary elements */
+    .hide-on-print {
+      display: none;
+    }
+    /* Customize the appearance of printed elements */
+    .card {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    /* Adjust the layout for printing */
+    /* Add any other necessary styles */
+  }
+        </style>
+</head>
 <!-- message box if the new waste has been added -->
 @if(session()->has('message'))
 <div class="alert alert-success">    
@@ -11,6 +29,7 @@
 </div>
 @endif
 @foreach($wastelist as $index => $data)
+<div class="print-content">
 <div class="card">
     <div class="card-body">
         <!-- form add waste -->
@@ -88,15 +107,31 @@
           
                         <div class="col">
                             <label>Transporter</label>
-                            <input type="text" name="transporter" class="form-control" value="{{ $data->fullname}}" disabled>
+                            @foreach ($transporterlist as $trans)
+                            <input type="text" name="transporter" class="form-control" value="{{ $trans->fullname}}" disabled>
+                            @endforeach
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                        <label>Receiver</label>
+                        <input type="text" name="companyreceiver" class="form-control" value="{{ $data->companyname}}" disabled>
+                        </div>
+                        
+                        <div class="col">
+                           
                          </div>
                     </div>
                     <br>
                 </div> 
             </div>
             <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editwaste', $data->swListID) }}">Edit</a>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('moredetails', $data->swListID) }}">More Details</a>
+
     </div>
 </div><br>
+</div>
 @endforeach
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
@@ -139,5 +174,12 @@
         var maxDate = year + '-' + month + '-' + day;
         $('#txtDate').attr('min', maxDate);
     });
+</script>
+<script>
+  $(function() {
+    $('.print').click(function() {
+      window.print();
+    });
+  });
 </script>
 @endsection

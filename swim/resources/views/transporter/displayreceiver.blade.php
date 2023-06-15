@@ -1,8 +1,8 @@
 @extends('layouts.sideNav')
 
 @section('content')
-<h4>Transporter</h4>
-<h6>Add New Transporter</h6>
+<h4>Receiver</h4>
+<h6>Add New Receiver</h6>
 
 <!-- message box if the new proposal has been added -->
 @if(session()->has('message'))
@@ -32,10 +32,6 @@
     input[type=text]{
         text-transform: capitalize;
     }
-   
-    input[type=text], textarea{
-        text-transform: capitalize;
-    }
     </style>
 
 <script>
@@ -49,30 +45,39 @@ $(document).ready(function(){
 <div class="card">
     <div class="card-body">
     <h6><b>COMPANY DETAILS</h6></b>
-    <form method="POST" action="{{ route('inserttransporter') }}" id="transporterform">
-                    @csrf  
                     <div class="container1">                                                                                                                                                        
                     <div class="row">
                         <div class="col">
                             <div class="row">
                                 <div class="col">
                                     <label>Company Name</label>
-                                    <input type="text" name="companyname" class="form-control" placeholder="ABC Sdn Bhd" style="border-width: 1px; border-color: #666666;"  required>
+                                    <textarea rows="3" cols="50" type="text" name="address" class="form-control" placeholder="Address" 
+                                    style="border-width: 1px; border-color: #666666;" disabled>{{$receiverlist->companyname}}</textarea>
                                 </div>
                                 <div class="col">
-                                    <label>City</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City" style="border-width: 1px; border-color: #666666;" required>
+                                <label>Remarks</label>
+                                    <textarea rows="3" cols="50" type="text" name="remarks" class="form-control" placeholder="Remarks" 
+                                    style="border-width: 1px; border-color: #666666;"  disabled>{{$receiverlist->remarks}}</textarea>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                             <div class="col">
                                     <label>Address</label>
-                                    <textarea rows="3" cols="50" type="text" name="address" class="form-control" placeholder="Address" style="border-width: 1px; border-color: #666666;" required></textarea>
+                                    <textarea rows="3" cols="50" type="text" name="address" class="form-control" placeholder="Address" 
+                                    style="border-width: 1px; border-color: #666666;" disabled>{{$receiverlist->address}}</textarea>
                                 </div>
-                            <div class="col">
-                                    <label>Remarks</label>
-                                    <textarea rows="3" cols="50" type="text" name="remarks" class="form-control" placeholder="Remarks" style="border-width: 1px; border-color: #666666;" required></textarea>
+                                <div class="col">
+                               
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                
+                                </div>
+                                <div class="col">
+                               
                                 </div>
                             </div>
                             <br>
@@ -85,33 +90,33 @@ $(document).ready(function(){
                     <div class="row">
                         <div class="col">
                            <label>Full Name</label>
-                            <input type="text" name="fullname" class="form-control" placeholder="Full Name" style="border-width: 1px; border-color: #666666;" required>
+                            <input type="text" name="fullname" class="form-control" placeholder="Full Name" s
+                            tyle="border-width: 1px; border-color: #666666;" value="{{$receiverlist->fullname}}" disabled>
                         </div>
                         <div class="col">
                             <label>Phone Number</label>
-                            <input type="text" name="phonenum" class="form-control" placeholder="Phone Number" style="border-width: 1px; border-color: #666666;" required>
+                            <input type="text" name="phonenum" class="form-control" placeholder="Phone Number" 
+                            style="border-width: 1px; border-color: #666666;" value="{{$receiverlist->phonenum}}" disabled>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
                             <label>Email</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="ABC@gmail.com" name="email" value="{{ old('email') }}" style="border-width: 1px; border-color: #666666;" required autocomplete="email">
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="ABC@gmail.com" name="email"  
+                            style="border-width: 1px; border-color: #666666;" value="{{$receiverlist->email}}" required autocomplete="email" disabled>
+
                         </div>
                         <div class="col">
-                            <label>Registered Plate Number</label>
-                            <input type="text" name="platenumber" class="form-control" placeholder="Vehicle Plate" style="border-width: 1px; border-color: #666666;" required>
+                        <label>Fax Number</label>
+                            <input type="text" name="fax" class="form-control" placeholder="Fax Number" 
+                            style="border-width: 1px; border-color: #666666;" value="{{$receiverlist->fax}}" disabled>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                     <div class="col">
-                            <label>Status</label>
-                            <select class="form-control" name="status" style="border-width: 1px; border-color: #666666;">
-                                    <option value="">Status</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Non-Available">Non-Available</option>
-                            </select>                           
+                                                   
                         </div>
                         <div class="col">
                         </div>
@@ -120,7 +125,7 @@ $(document).ready(function(){
                
             
             </div><br>
-            <input type="submit" name="SubmitWaste" class="btn btn-primary" id="wasteform" style="float: right;">
+            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editReceiver', $receiverlist->id) }}">Edit</a>
         </form>
     </div>
    

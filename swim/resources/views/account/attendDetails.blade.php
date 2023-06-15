@@ -2,7 +2,6 @@
 @extends('layouts.sideNav')
 
 @section('content')
-<b><br><h4>Employee Record Attendance</h4></b>
 <head>
     <style>
 
@@ -56,7 +55,7 @@
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
-            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('EmpAttendance') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
+            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('attendListEmp') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
             </div>
 
           
@@ -75,24 +74,26 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Date</th>
-                            <th>Action</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            
                             
                         </tr>
                     </thead>
 
-                    @foreach($userlist as $index => $data)
-                    @if($data->category === 'Employee')
+                    @foreach($attendListEmp as $index => $data)
+                    
                     <tbody>
                         <tr id="row{{$data->id}}">
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td><a type="button" class="btn btn-primary" href="{{ route('attendDetails', $data->id) }}"
-                            style="background: #4775d1;">Details</a>
-                            </td>
+                            <td>{{ $data->date }}</td>
+                            <td>{{ $data->checkin }}</td>
+                            <td>{{ $data->checkout }}</td>
+                           
                         </tr>
                 </tbody>
-                @endif
+                
                 @endforeach
                 </table>
 

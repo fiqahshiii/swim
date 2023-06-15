@@ -23,6 +23,7 @@ class scheduledwaste extends Model
         'pic', 
         'expiredDate',
         'transporter', 
+        'companyreceiver', 
         'diff', 
 
     ];

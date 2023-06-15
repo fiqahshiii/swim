@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\Transporter;
+use App\Mail\TransEmail;
 
 class TransporterController extends Controller
 
@@ -61,7 +63,7 @@ class TransporterController extends Controller
     }
 
     public function displaytrans(Request $request, $id)
-    {        
+    {      
         $translist = Transporter::find($id);
 
         return view('transporter.displaytrans', compact ('translist'));        
@@ -69,13 +71,13 @@ class TransporterController extends Controller
     }
 
     public function EditTransporter(Request $request, $id)
-{
-    $translist = DB::table('transporter')
-        ->where('id', $id)
-        ->first();
+    {
+        $translist = DB::table('transporter')
+            ->where('id', $id)
+            ->first();
 
-    return view('transporter.editTransList', compact('translist'));
-}
+        return view('transporter.editTransList', compact('translist'));
+    }
 
 
     public function UpdatedTrans(Request $request, $id)
@@ -113,4 +115,35 @@ class TransporterController extends Controller
         }
     }
 
+    public function getEmailTrans(Request $request, $id)
+        {
+
+            $user = DB::table('transporter')
+            
+
+            ->select([
+                'fullname', 'email'
+            ])
+            
+            ->first();
+
+            $to = [
+
+                [
+                    'email' => $user->email,
+                ]
+
+            ];
+
+            //send email
+            $data = [
+                
+                'fullname' => $user->fullname,
+            ];
+           
+            Mail::to($to)->send(new TransEmail($data));
+            
+            return back()->with('success', 'Email Successfully Sent.');
+           
+        }  
 }

@@ -29,7 +29,7 @@
             color: red;
         }
         .action-cell {
-        width: 200px;
+        width: 90%;
     }
 
     .dropbtn {
@@ -174,7 +174,8 @@ $(document).ready(function() {
                             <td class="action-cell">
                                 <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->id) }}">View</a>
                                 <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
-                                <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background: #002b80; color: white;" type="button" >Email</button></a>
+                                <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background: #002b80; color: white;" type="button">Email</button></a>
+
                             </td>
                       
                         </tr>
@@ -289,11 +290,7 @@ function deleteItem(e) {
         } else if (
             result.dismiss === Swal.DismissReason.cancel
         ) {
-            // swalWithBootstrapButtons.fire(
-            //     'Cancelled',
-            //     'Your imaginary file is safe :)',
-            //     'error'
-            // );
+
         }
     });
 

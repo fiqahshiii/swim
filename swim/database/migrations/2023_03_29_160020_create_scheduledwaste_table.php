@@ -25,6 +25,7 @@ return new class extends Migration
             $table->bigInteger('pic');
             $table->date('expiredDate');
             $table->bigInteger('transporter');
+            $table->bigInteger('companyreceiver');
             $table->string('diff')->nullable();
 
             $table->timestamps();

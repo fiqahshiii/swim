@@ -1,8 +1,8 @@
 @extends('layouts.sideNav')
 
 @section('content')
-<h4>Transporter</h4>
-<h6>Add New Transporter</h6>
+<h4>Receiver</h4>
+<h6>Add New Receiver</h6>
 
 <!-- message box if the new proposal has been added -->
 @if(session()->has('message'))
@@ -32,10 +32,10 @@
     input[type=text]{
         text-transform: capitalize;
     }
-   
     input[type=text], textarea{
         text-transform: capitalize;
     }
+    
     </style>
 
 <script>
@@ -49,7 +49,7 @@ $(document).ready(function(){
 <div class="card">
     <div class="card-body">
     <h6><b>COMPANY DETAILS</h6></b>
-    <form method="POST" action="{{ route('inserttransporter') }}" id="transporterform">
+    <form method="POST" action="{{ route('insertreceiver') }}" id="receiverform">
                     @csrf  
                     <div class="container1">                                                                                                                                                        
                     <div class="row">
@@ -57,11 +57,13 @@ $(document).ready(function(){
                             <div class="row">
                                 <div class="col">
                                     <label>Company Name</label>
-                                    <input type="text" name="companyname" class="form-control" placeholder="ABC Sdn Bhd" style="border-width: 1px; border-color: #666666;"  required>
+                                    <textarea rows="3" cols="50" type="text" name="companyname" class="form-control" placeholder="Company Name" 
+                                    style="border-width: 1px; border-color: #666666;" required></textarea>
                                 </div>
                                 <div class="col">
-                                    <label>City</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City" style="border-width: 1px; border-color: #666666;" required>
+                                <label>Remarks</label>
+                                    <textarea rows="3" cols="50" type="text" name="remarks" class="form-control" placeholder="Remarks" 
+                                    style="border-width: 1px; border-color: #666666;" required></textarea>
                                 </div>
                             </div>
                             <br>
@@ -70,9 +72,8 @@ $(document).ready(function(){
                                     <label>Address</label>
                                     <textarea rows="3" cols="50" type="text" name="address" class="form-control" placeholder="Address" style="border-width: 1px; border-color: #666666;" required></textarea>
                                 </div>
-                            <div class="col">
-                                    <label>Remarks</label>
-                                    <textarea rows="3" cols="50" type="text" name="remarks" class="form-control" placeholder="Remarks" style="border-width: 1px; border-color: #666666;" required></textarea>
+                                <div class="col">
+                               
                                 </div>
                             </div>
                             <br>
@@ -99,19 +100,14 @@ $(document).ready(function(){
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="ABC@gmail.com" name="email" value="{{ old('email') }}" style="border-width: 1px; border-color: #666666;" required autocomplete="email">
                         </div>
                         <div class="col">
-                            <label>Registered Plate Number</label>
-                            <input type="text" name="platenumber" class="form-control" placeholder="Vehicle Plate" style="border-width: 1px; border-color: #666666;" required>
+                        <label>Fax Number</label>
+                            <input type="text" name="fax" class="form-control" placeholder="Fax Number" style="border-width: 1px; border-color: #666666;" required>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                     <div class="col">
-                            <label>Status</label>
-                            <select class="form-control" name="status" style="border-width: 1px; border-color: #666666;">
-                                    <option value="">Status</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Non-Available">Non-Available</option>
-                            </select>                           
+                                                   
                         </div>
                         <div class="col">
                         </div>
@@ -120,7 +116,7 @@ $(document).ready(function(){
                
             
             </div><br>
-            <input type="submit" name="SubmitWaste" class="btn btn-primary" id="wasteform" style="float: right;">
+            <input type="submit" name="SubmitReceiver" class="btn btn-primary" id="receiverform" style="float: right;">
         </form>
     </div>
    

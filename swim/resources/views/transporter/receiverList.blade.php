@@ -1,22 +1,7 @@
-
 @extends('layouts.sideNav')
 
 @section('content')
-<b><br><h4>Employee Record Attendance</h4></b>
-<head>
-    <style>
-
-        th{
-             text-align: center;
-        }
-        td{
-             text-align: center;
-        }
-        input[type=text]{
-            text-transform: capitalize;
-        }
-    </style>
-</head>
+<b><br><h4>List of Receiver</h4></b>
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script src="{{ asset('frontend') }}/js/dataTables.bootstrap4.js"></script>
 <script src="//code.jquery.com/jquery-1.12.3.js"></script>
@@ -56,10 +41,32 @@
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
-            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('EmpAttendance') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
+            <div class=" {{  auth()->user()->category== 'Manager' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('receiverlist') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
+                <nav class="">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('receiverlist') ? 'active' : '' }}" href="{{ route('receiverlist') }}" role="tab" aria-selected="true">List Of Receiver</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
-          
+            <!-- if user == committee, then have add new transporter button  -->
+            @if( auth()->user()->category== "Manager")
+
+            @if(request()->routeIs('receiverlist'))
+            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
+                <a class="btn btn-primary" style="float: right; " role="button" href="{{ route('newreceiver') }}">
+                    <i class="fas fa-plus"></i>&nbsp; Create New Receiver</a>
+            </div>
+            @else
+            <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
+                <a class="btn btn-success" style="float: right; width:100%;" role="button" href="">
+                    <i class="fa fa-cog"></i>&nbsp; -</a>
+            </div>
+            @endif
+
+            @endif
 
         </div>
     </div>
@@ -67,41 +74,41 @@
     <div class="card-body">
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
-
-                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee" || auth()->user()->category== "Admin")
+                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Company Name</th>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Phone Number</th>
                             <th>Action</th>
-                            
                         </tr>
                     </thead>
-
-                    @foreach($userlist as $index => $data)
-                    @if($data->category === 'Employee')
                     <tbody>
+                    @foreach($receiverlist As $key=>$data)
                         <tr id="row{{$data->id}}">
                             <td>{{ $data->id }}</td>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td><a type="button" class="btn btn-primary" href="{{ route('attendDetails', $data->id) }}"
-                            style="background: #4775d1;">Details</a>
+                            <td>{{ $data->companyname }}</td>
+                            <td>{{ $data->fullname }}</td>
+                            <td>{{ $data->phonenum }}</td>
+                            <td>
+                            <a type="button" class="btn btn-primary" href="{{ route('displayReceiver', $data->id) }}">View</a>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
                             </td>
                         </tr>
-                </tbody>
-                @endif
-                @endforeach
+                        @endforeach
+                    </tbody>
                 </table>
 
                 @endif
-                <!-- FOR Manager TO VIEW RECORD APPOINTNMENT LIST END -->
+                <!-- FOR MANAGER TO VIEW LIST END -->
             </div>
         </div>
     </div>
-</div>
+
+
+</div><br>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script>
@@ -132,7 +139,7 @@ function deleteItem(e) {
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '{{url("/deleteFile")}}/' + id,
+                    url: '{{url("/deleteReceiver")}}/' + id,
                     data: {
                         "_token": "{{ csrf_token() }}",
                     },
@@ -140,7 +147,7 @@ function deleteItem(e) {
                         if (data.success) {
                             swalWithBootstrapButtons.fire(
                                 'Deleted!',
-                                'Document has been deleted.',
+                                'User account has been deleted.',
                                 "success"
                             );
 
@@ -166,5 +173,4 @@ function deleteItem(e) {
 
 }
 </script>
-
 @endsection

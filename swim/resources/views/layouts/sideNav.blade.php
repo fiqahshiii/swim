@@ -57,11 +57,21 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('translist*') ? 'active' : '' }}" href="{{ route('translist') }}">
-                            <!-- //work icon -->
+                        <a class="nav-link {{ request()->routeIs('translist*') ? 'active' : '' }}" data-toggle="collapse" data-target="#appointmentSubMenu">
                             <i class="material-icons" style="color:black">local_shipping</i>
-                            <span>Transporter</span>
+                            <span>Consignment</span>
                         </a>
+                        <div class="collapse" id="appointmentSubMenu" style="margin-left: 20px">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('translist') ? 'active' : '' }}" href="{{ route('translist') }}">Transporter</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('receiverlist') ? 'active' : '' }}" href="{{ route('receiverlist') }}">Receiver</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -101,6 +111,32 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('swlist*') ? 'active' : '' }}" href="{{ route('swlist') }}">
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">view_list</i>
+                            <span>Scheduled Waste List</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('translist*') ? 'active' : '' }}" data-toggle="collapse" data-target="#appointmentSubMenu">
+                            <i class="material-icons" style="color:black">local_shipping</i>
+                            <span>Consignment</span>
+                        </a>
+                        <div class="collapse" id="appointmentSubMenu" style="margin-left: 20px">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('translist') ? 'active' : '' }}" href="{{ route('translist') }}">Transporter</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('receiverlist') ? 'active' : '' }}" href="{{ route('receiverlist') }}">Receiver</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('swfile*') ? 'active' : '' }}" href="{{ route('swfile') }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">picture_as_pdf</i>
@@ -109,10 +145,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('attendance*') ? 'active' : '' }}" href="{{ route('attendance') }}"> 
+                        <a class="nav-link {{ request()->routeIs('EmpAttendance*') ? 'active' : '' }}" href="{{ route('EmpAttendance') }}"> 
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">schedule</i>
-                            <span>Attendance</span>
+                            <span>Users Attendance</span>
                         </a>
                     </li>
 
@@ -136,19 +172,21 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('translist*') ? 'active' : '' }}" href="{{ route('translist') }}">
-                            <!-- //work icon -->
+                        <a class="nav-link {{ request()->routeIs('translist*') ? 'active' : '' }}" data-toggle="collapse" data-target="#appointmentSubMenu">
                             <i class="material-icons" style="color:black">local_shipping</i>
-                            <span>Transporter</span>
+                            <span>Consignment</span>
                         </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('filter*') ? 'active' : '' }}" href="{{ route('filter') }}">
-                            <!-- //work icon -->
-                            <i class="material-icons" style="color:black">filter_alt</i>
-                            <span>Filtering</span>
-                        </a>
+                        <div class="collapse" id="appointmentSubMenu" style="margin-left: 20px">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('translist') ? 'active' : '' }}" href="{{ route('translist') }}">Transporter</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('receiverlist') ? 'active' : '' }}" href="{{ route('receiverlist') }}">Receiver</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -160,7 +198,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">
+                        <a class="nav-link {{ request()->routeIs('ManagerCalendar*') ? 'active' : '' }}" href="{{ route('ManagerCalendar') }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">date_range</i>
                             <span>Calendar</span>
@@ -221,13 +259,20 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    <i class="material-icons text-danger">&#xE879;</i> Logout </a>
+                                
+                                <a class="dropdown-item text-danger" href="{{ route('account', Auth::user()->id) }}" style="color: black !important;">
+                                <i class="material-icons text-danger" style="color: black !important;">settings</i> My Profile </a>
 
+                                <a class="dropdown-item text-danger" href="{{ route('ResetPassword', Auth::user()->id) }}" style="color: black !important;">
+                                <i class="material-icons text-danger" style="color: black !important;">settings</i> Change Password </a>
+
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" style="color: black !important;">
+                                    <i class="material-icons text-danger" style="color: black !important;" >&#xE879;</i> Logout </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
+
                             </div>
                         </li>
                     </ul>

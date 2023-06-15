@@ -73,11 +73,11 @@ $(document).ready(function() {
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
-            <div class=" {{  auth()->user()->category== 'Employee' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('swlist') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
+            <div class=" {{  auth()->user()->category== 'Employee' ? 'col-lg-10 col-md-10 col-sm-10' : (request()->routeIs('swlistManager') ? 'col-lg-10 col-md-10 col-sm-10' : 'col-lg-12 col-md-12 col-sm-12') }}">
                 <nav class="">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('swlist') ? 'active' : '' }}" href="{{ route('swlist') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
+                            <a class="nav-link {{ request()->routeIs('swlistManager') ? 'active' : '' }}" href="{{ route('swlistManager') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('pendingsw') ? '' : '' }}" href="{{ route('pendingsw') }}" role="tab" aria-selected="true">Pending Scheduled Waste</a>
@@ -89,9 +89,9 @@ $(document).ready(function() {
                 </nav>
             </div>
 
-            @if( auth()->user()->category== "Employee")
+            @if( auth()->user()->category== "Manager")
 
-            @if(request()->routeIs('swlist'))
+            @if(request()->routeIs('swlistManager'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
             <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
                 <a class="btn btn-primary" style="float: right; background: #4775d1;" role="button" href="{{ route('wasteEmp') }}" >
@@ -118,17 +118,16 @@ $(document).ready(function() {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="width:10%; text-align:center;">Disposal Date</th>
-                            <th style="width:10%; text-align:center;">Scheduled Waste</th>
-                            <th style="width:10%; text-align:center;">Status</th>
-                            <th style="width:10%; text-align:center;">Day Remaining</th> 
-                            <th style="width:20%; text-align:center;">Company Receiver</th>
-                            <th style="width:25%; text-align:center;">Action</th>
+                            <th>Disposal Date</th>
+                            <th>Scheduled Waste</th>
+                            <th>Status</th>
+                            <th>Day Remaining</th> 
+                            <th>Person In Charge</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                    @if( auth()->user()->category== "Employee")
+                        
                     @foreach($wastelist as $index => $data)
                     <tr id="row{{$data->id}}">
                         <td>{{ $data->swListID }}</td>
@@ -140,37 +139,18 @@ $(document).ready(function() {
                                 {{ $wasteData[$index]['diffInDays'] }} day/days
                             @endif
                         </td>
-                        <td>{{ $data->companyname }}</td>
+                        <td>{{ $data->name }}</td>
                         <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1;">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
-
-                        </td>                        
-                    </tr>
-                    @endforeach
-
-                @elseif(auth()->user()->category == "Manager" || auth()->user()->category == "Admin")
-                @foreach($wastelistManager as $index => $data)
-                    <tr id="row{{$data->id}}">
-                        <td>{{ $data->swListID }}</td>
-                        <td class="{{ $wasteData[$index]['diffInDays'] < 10 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
-                        <td>{{ $data->wastecode }}</td>
-                        <td>{{ $data->statusDisposal }}</td>
-                        <td>
-                            @if(isset($wasteData[$index]))
-                                {{ $wasteData[$index]['diffInDays'] }} day/days
-                            @endif
-                        </td>
-                        <td>{{ $data->companyname }}</td>
-                        <td style="text-align: center;">
-                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1; ">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
-                            <a href="{{ route('getEmail', $data->pic) }}"><button class="btn"  style="background: #002b80; color: white; " type="button">Email</button></a>
+                            <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" 
+                            style="background: #4775d1;">View</a>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" 
+                            data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
+                            <a href="{{ route('getEmail', $data->id) }}"><button class="btn"  style="background: #002b80; color: white;" type="button" >Email</button></a>
 
                         </td>                        
                     </tr>
                 @endforeach
-                @endif
+
                 </tbody>
                 
                 </table>

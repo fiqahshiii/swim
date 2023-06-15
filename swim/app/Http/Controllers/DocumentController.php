@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Document;
+
 
 class DocumentController extends Controller
 {
@@ -61,6 +62,34 @@ class DocumentController extends Controller
         return view('scheduledwaste.displayDoc', compact('document'));
         
     }
+
+    public function editDoc(Request $request, $id)
+    {
+        $document = DB::table('document')
+            ->where('id', $id)
+            ->first();
+    
+        return view('scheduledwaste.editDoc', compact('document'));
+    }
+    
+    public function UpdatedDoc(Request $request, $id)
+    {
+
+        // find the id from proposal
+        $document = Document::find($id);
+     
+        $document->swcode = $request->input('swcode');
+        $document->filename = $request->input('filename');
+        $document->document = $request->input('document');
+       
+        // upadate query in the database
+        $document->update();
+
+        // display message box in the same page
+        return redirect()->back()->with('message', 'Product Updated Successfully');
+        
+    }
+    
 
     public function deletefile(Request $request, $id)
     {

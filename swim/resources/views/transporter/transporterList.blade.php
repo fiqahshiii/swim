@@ -1,13 +1,19 @@
 @extends('layouts.sideNav')
 
 @section('content')
-
+<b><br><h4>List of Transporter</h4></b>
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script src="{{ asset('frontend') }}/js/dataTables.bootstrap4.js"></script>
 <script src="//code.jquery.com/jquery-1.12.3.js"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
+<head>
+    <style>
+        .action-cell {
+        width: 200px;
+        }
+    </style>
+</head>
 <script>
     // to search the appointment 
     $(document).ready(function() {
@@ -74,7 +80,7 @@
     <div class="card-body">
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
-                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee")
+                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee"  || auth()->user()->category== "Admin")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -84,7 +90,7 @@
                             <th>Vehicle Plate</th>
                             <th>Phone Number</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th style="width:25%; text-align:center;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,8 +104,11 @@
                             <td>{{ $data->status }}</td>
                             <td>
                             <a type="button" class="btn btn-primary" href="{{ route('displaytrans', $data->id) }}">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
-                          
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" 
+                            data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
+                            <a href="{{ route('getEmailTrans', $data->id) }}"><button class="btn"  style="background: #002b80; color: white; " type="button">Email</button></a>
+
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

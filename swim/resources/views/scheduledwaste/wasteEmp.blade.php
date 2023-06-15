@@ -19,6 +19,9 @@
         input[type=text]{
             text-transform: capitalize;
         }
+        input[type=text], textarea{
+        text-transform: capitalize;
+    }
         </style>
 
     <script>
@@ -143,7 +146,26 @@
                                     <input type="text" class="form-control" value="Non-Available" readonly>
                                 @endif
                             </div>
-
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                            <div class="col">
+                               
+                            <label>Receiver</label>
+                             
+                                    <select class="form-control" name="companyreceiver">
+                                        @foreach ($receiverlist as $receive)
+                                            <option value="{{ $receive->id }}">{{ $receive->companyname }}</option>
+                                        @endforeach
+                                    </select>
+                             
+                            </div>
+                            </div>
+                        
+                            <div class="col">
+    
+                            </div>
                         </div>
                         <br>
                     </div>

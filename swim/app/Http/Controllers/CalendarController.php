@@ -17,29 +17,35 @@ class CalendarController extends Controller
     public function empCalendar(Request $request)
     {
         $currentUser = Auth::user()->id;
-        
-
         if ($request->ajax()) {
-
-            
 
             $klTime = Carbon::now('Asia/Kuala_Lumpur'); // Get current KL time
             $start = $klTime->toDateString(); // Get the date part in YYYY-MM-DD format
 
             $data = scheduledwaste::select('id', 'wastecode as title', 'expiredDate as start')
-                ->where ('scheduledwaste.id', '=', $currentUser)
-                ->get();
+            ->where ('scheduledwaste.pic', '=', $currentUser)
+             ->get();
                 
-
             return response()->json($data);
         }
-    
-
-        return view('calendar.calendar', compact('currentUser'));
-
-        
+        return view('calendar.calendar', compact('currentUser'));  
     }
 
+    public function ManagerCalendar(Request $request)
+    {
+       
+        if ($request->ajax()) {
+
+            $klTime = Carbon::now('Asia/Kuala_Lumpur'); // Get current KL time
+            $start = $klTime->toDateString(); // Get the date part in YYYY-MM-DD format
+
+            $data = scheduledwaste::select('id', 'wastecode as title', 'expiredDate as start')
+             ->get();
+                
+            return response()->json($data);
+        }
+        return view('calendar.ManagerCalendar');  
+    }
 
       
 }

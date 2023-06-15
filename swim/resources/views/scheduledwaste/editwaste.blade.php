@@ -7,6 +7,9 @@
      input[type=text]{
         text-transform: capitalize;
     }
+    input[type=text], textarea{
+        text-transform: capitalize;
+    }
 </style>
 <!-- message box if the new waste has been added -->
 @if(session()->has('message'))
@@ -120,21 +123,37 @@
                         <div class="col">
                             <label>Transporter</label>
                             <select class="form-control" name="transporter">
-                            @foreach($wastelist As $key=>$trans)
+                            @foreach($transporterlist As $key=>$trans)
                                     <option value="{{ $trans->id }}">{{ $trans->fullname }}</option>
                             @endforeach
                             </select>                      
                          </div>
                     </div>
                     <br>
+                    <div class="row">
+                        <div class="col">
+                        <div class="col">
+                        <label>Receiver</label>
+                            <select class="form-control" name="transporter">
+                            @foreach($wastelist As $key=>$receive)
+                                    <option value="{{ $receive->id }}">{{ $receive->companyname }}</option>
+                            @endforeach
+                            </select>  
+                        </div>
+                        </div>
+                        <div class="col">
+                                             
+                         </div>
+                    </div>
                 </div> 
             </div>
-           <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}"  onclick="updateItem(this)">Update</button>
-               </div>
+           <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
+           data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Update</button>
 
-                  <!-- modal -->
+
+               </div>
              <!-- modal -->
-             <!-- <div class="modal fade" id="confirmUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="confirmUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">Update Confirmation</h1>
@@ -154,7 +173,7 @@
                     <span class="close">&times;</span>
                     <img class="modal-content" id="img01">
                     <div id="caption"></div>
-                    </div> -->
+                    </div>
             <!-- end of modal -->
 
         </form> 
@@ -206,67 +225,8 @@ $(document).on({
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function updateItem(e) {
-            let id = e.getAttribute('data-id');
-            let name = e.getAttribute('data-name');
+ 
 
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success ml-1',
-                    cancelButton: 'btn btn-danger mr-1'
-                },
-                buttonsStyling: false
-            });
-
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                html: "Name: " + name + "<br> You want to update this item?",
-                text: "",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, update it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    if (result.isConfirmed) {
-                        let formData = $('#wasteform').serialize(); // Serialize form data
-
-                        $.ajax({
-                            type: 'PUT', // Use PUT method instead of POST
-                            url: '{{ route("updatedwaste", ":id") }}'.replace(':id', id),
-                            data: formData, // Pass form data
-                            success: function (data) {
-                                if (data.success) {
-                                    swalWithBootstrapButtons.fire(
-                                        'Updated!',
-                                        'Item has been successfully updated.',
-                                        'success'
-                                    );
-                                } else {
-                                    swalWithBootstrapButtons.fire(
-                                        'Error!',
-                                        'Failed to update the item.',
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function () {
-                                swalWithBootstrapButtons.fire(
-                                    'Error!',
-                                    'An error occurred while updating the item.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // Update was cancelled
-                }
-            });
-        }
-    </script>
 
 
 @endsection

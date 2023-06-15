@@ -51,7 +51,7 @@
                                 <center><label>PROFILE PHOTO</label><br>
                                 <!-- to preview the file from the input type in div -->
                                 <img src="/assets/{{$user->image}}" width="180px" height="240" style="float: middle; border-radius:50%"></center>
-                                <input type="file" name="image" id="image" accept="image/*" onchange="loadImage(this)" value="{{$user->image}}" style="color: white;">
+                                <input type="file" name="image" id="image" accept="image/*" onchange="loadImage(this)" value="{{$user->image}}" style="color: black;">
                                 </div>  
                             </div> 
                         </div>           

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -16,6 +17,12 @@ class AccountController extends Controller
     {
         $user = User::find($id);
         return view('account.viewAcc', ['user' => $user]);
+    }
+
+    public function ResetPassword($id)
+    {
+        $user = User::find($id);
+        return view('account.changePwd', ['user' => $user]);
     }
     
     public function updateprofile(Request $request, $id)
@@ -35,6 +42,19 @@ class AccountController extends Controller
             $request->image->move('assets', $filename);
             //untuk rename
             $user->image = $filename;
+
+            $user->update();
+ 
+            return redirect()->back();
+    }
+
+    public function updatePwd(Request $request, $id)
+    {
+            $user = User::find($id);
+            // unlink the old proposal file from assets folder
+            
+            $user->password = $request->input('password');
+            
 
             $user->update();
  
@@ -124,8 +144,7 @@ class AccountController extends Controller
 
     public function checkOut($id)
     {
-   
-    
+
     // Set the timezone to Kuala Lumpur
     $kl_timezone = 'Asia/Kuala_Lumpur';
 
@@ -154,9 +173,24 @@ class AccountController extends Controller
     public function ListAttendance()
     {
         
+       
 
-        $attendList = DB::table('attendance')
+        $userlist = DB::table('users')
+        ->orderBy('id', 'asc')
+        ->get();
+        
+       
+        return view('account.EmpAttendance', compact('userlist'));
+    
+    }
+
+    public function attendDetailsEmp(Request $request, $id)
+    {
+        $attendanceEmp = User :: find($id);
+        
+        $attendListEmp = DB::table('attendance')
         ->join('users', 'users.id','=','attendance.userID')
+        
         
         ->select([
             'users.id AS userID',
@@ -164,11 +198,34 @@ class AccountController extends Controller
             'users.*', 'attendance.*'
         ])
         
+        ->where('userID', $id)
         ->get();
     
-        return view('account.EmpAttendance', compact('attendList'));
+        return view('account.attendDetails', compact('attendListEmp','attendanceEmp'));
     }
 
+    public function updatePassword(Request $request)
+{
+    $user = Auth::user();
+
+    $request->validate([
+        'old_password' => 'required',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    // Check if the old password matches the user's current password
+    if (!Hash::check($request->old_password, $user->password)) {
+        return redirect()->back()->with('error', 'Old password is incorrect.');
+    }
+
+    // Update the user's password
+    $user->password = Hash::make($request->password);
+    $user->save();
+
+    return redirect()->back()->with('message', 'Password updated successfully.');
+}
+
+    
     
 
 }

@@ -9,6 +9,9 @@
             font-size: 30px;
             /* color: white; */
         }
+        input[type=text]{
+            text-transform: capitalize;
+        }
     </style>
 </head>
 
