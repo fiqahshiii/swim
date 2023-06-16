@@ -63,7 +63,7 @@
                         <div class="col">
                             <label>Type Of Packaging</label>
                             <select class="form-control" name="packaging" required>
-                                    <option value="">{{$data->packaging}}</option>
+                                    <option value="">Please Select</option>
                                     <option value="JumboBag">Jumbo Bag</option>
                                     <option value="IBC">IBC</option>
                                     <option value="Drum">Drum</option>
@@ -76,7 +76,7 @@
                         <div class="col">
                             <label>Physical State</label>
                             <select class="form-control" name="state" required>
-                                    <option value="" >{{$data->state}}</option>
+                                    <option value="" >Please Select</option>
                                     <option value="Solid">Solid</option>
                                     <option value="Gas">Gas</option>
                                     <option value="Liquid">Liquid</option>
@@ -86,7 +86,7 @@
                         <div class="col">
                             <label>Disposal Status</label>
                             <select class="form-control" name="statusDisposal"  required>
-                                    <option value="">{{$data->statusDisposal}}</option>
+                                    <option value="">Please Select</option>
                                     <option value="Disposed">Disposed</option>
                                     <option value="Pending">Pending</option>
                             </select>
@@ -123,9 +123,9 @@
                         <div class="col">
                             <label>Transporter</label>
                             <select class="form-control" name="transporter">
-                            @foreach($transporterlist As $key=>$trans)
-                                    <option value="{{ $trans->id }}">{{ $trans->fullname }}</option>
-                            @endforeach
+                         
+                                    <option value="{{ $data->id }}">{{ $data->transporterName }}</option>
+                          
                             </select>                      
                          </div>
                     </div>
@@ -134,10 +134,10 @@
                         <div class="col">
                         <div class="col">
                         <label>Receiver</label>
-                            <select class="form-control" name="transporter">
-                            @foreach($wastelist As $key=>$receive)
-                                    <option value="{{ $receive->id }}">{{ $receive->companyname }}</option>
-                            @endforeach
+                            <select class="form-control" name="companyreceiver">
+                            
+                                    <option value="{{ $data->id }}">{{ $data->companyname }}</option>
+                          
                             </select>  
                         </div>
                         </div>

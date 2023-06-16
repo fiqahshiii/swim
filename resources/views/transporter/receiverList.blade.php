@@ -17,7 +17,7 @@
             ],
             "language": {
                 search: '<i class="fa fa-search" aria-hidden="true"></i>',
-                searchPlaceholder: 'Search appointment'
+                searchPlaceholder: 'Search by Name'
             }
         });
 
@@ -74,7 +74,7 @@
     <div class="card-body">
         <div class="overflow-auto" style="overflow:auto;">
             <div class="table-responsive">
-                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee")
+                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee" || auth()->user()->category== "Admin")
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

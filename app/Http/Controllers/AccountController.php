@@ -178,9 +178,13 @@ class AccountController extends Controller
         $userlist = DB::table('users')
         ->orderBy('id', 'asc')
         ->get();
+
+        $userlistAdmin = DB::table('users')
+        ->orderBy('id', 'asc')
+        ->get();
         
        
-        return view('account.EmpAttendance', compact('userlist'));
+        return view('account.EmpAttendance', compact('userlist','userlistAdmin'));
     
     }
 

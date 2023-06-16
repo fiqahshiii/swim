@@ -32,7 +32,7 @@
             ],
             "language": {
                 search: '<i class="fa fa-search" aria-hidden="true"></i>',
-                searchPlaceholder: 'Search appointment'
+                searchPlaceholder: 'Search by Name'
             }
         });
 
@@ -82,6 +82,21 @@
 
                     @foreach($userlist as $index => $data)
                     @if($data->category === 'Employee')
+                    <tbody>
+                        <tr id="row{{$data->id}}">
+                            <td>{{ $data->id }}</td>
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->email }}</td>
+                            <td><a type="button" class="btn btn-primary" href="{{ route('attendDetails', $data->id) }}"
+                            style="background: #4775d1;">Details</a>
+                            </td>
+                        </tr>
+                </tbody>
+                @endif
+                @endforeach
+
+                @foreach($userlistAdmin as $index => $data)
+                    @if($data->category === 'Manager' )
                     <tbody>
                         <tr id="row{{$data->id}}">
                             <td>{{ $data->id }}</td>

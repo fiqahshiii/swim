@@ -65,14 +65,16 @@
             <div class="table-responsive">
 
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: left;">
-                @if ($attendList->contains('date', now()->toDateString()))
-                    <button class="btn btn-primary" style="float: right; width:100%; background:#2952a3;" disabled>Check-in</button>
-                @else
-                    <form id="checkInForm" method="post" action="{{ route('checkIn') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-primary" style="float: right; width:100%; background:#2952a3;" role="button">Check-in</button>
-                    </form>
-                @endif
+            @if ($attendList->contains('date', now()->toDateString()))
+    <button class="btn btn-primary disabled" style="float: right; width:100%; background:#2952a3;" disabled>Check-in</button>
+@else
+    <form id="checkInForm" method="post" action="{{ route('checkIn') }}">
+        @csrf
+        <button type="submit" class="btn btn-primary" style="float: right; width:100%; background:#2952a3;" role="button">Check-in</button>
+    </form>
+@endif
+
+
             </div>
 
 

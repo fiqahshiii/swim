@@ -108,7 +108,7 @@
                         <div class="col">
                             <label>Transporter</label>
                              
-                            <input type="text" name="transporter" class="form-control" value="{{ $data->transporterName}}" disabled>
+                            <input type="text" name="transporter" class="form-control" value="{{ $data-> transporterName}}" disabled>
                             
                         </div>
                     </div>
@@ -126,8 +126,8 @@
                     <br>
                 </div> 
             </div>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editwaste', $data->swListID) }}">Edit</a>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('moredetails', $data->swListID) }}">More Details</a>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white" 
+            href="{{ route('editwaste',['swListID' => $data->swListID, 'transID' => $data->transID, 'receiveID' => $data->receiveID ]) }}">Edit</a>
 
     </div>
 </div><br>

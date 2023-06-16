@@ -17,7 +17,7 @@
             ],
             "language": {
                 search: '<i class="fa fa-search" aria-hidden="true"></i>',
-                searchPlaceholder: 'Search appointment'
+                searchPlaceholder: 'Search file'
             }
         });
 

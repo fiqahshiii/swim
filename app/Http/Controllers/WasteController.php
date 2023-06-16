@@ -38,15 +38,14 @@ class WasteController extends Controller
     }
     
 
-    public function EditWaste(Request $request, $id)
+    public function EditWaste(Request $request, $swListID, $transID, $receiveID)
     {
         $transporterlist = DB::table('transporter')
         ->where('status', '!=', 'Non-Available')
         ->get();
 
-        $receiverlist = DB::table('receiver')
-            
-            ->get();
+        $receiverlist = DB::table('receiver')  
+        ->get();
 
         $userlist = DB::table('users')
         ->get();
@@ -60,9 +59,12 @@ class WasteController extends Controller
             'transporter.id AS transID',
             'scheduledwaste.id AS swListID',
             'receiver.id AS receiveID',
-            'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*'
+            'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*',
+            'transporter.fullname AS transporterName'
         ])
-        ->where('scheduledwaste.id', $id)
+        ->where('scheduledwaste.id', $swListID)
+        ->where('transporter.id', $transID)
+        ->where('receiver.id', $receiveID)
         ->get();
         
 
@@ -170,6 +172,15 @@ class WasteController extends Controller
         ])
         ->get();
 
+        $wastelistManager = DB::table('scheduledwaste')
+        ->join('users', 'users.id','=','scheduledwaste.pic')
+        ->select([
+            'users.id AS userID',
+            'scheduledwaste.id AS swListID', 'users.*', 'scheduledwaste.*'
+        ])
+        ->get();
+
+
         $wasteData = [];
 
         foreach ($wastelist as $waste) {
@@ -187,7 +198,7 @@ class WasteController extends Controller
         }
         
        
-        return view('scheduledwaste.pendingsw', compact('wastelist', 'wasteData', 'currentUser'));
+        return view('scheduledwaste.pendingsw', compact('wastelist', 'wasteData', 'currentUser','wastelistManager'));
         
     }
 

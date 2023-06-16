@@ -77,10 +77,18 @@ class DocumentController extends Controller
 
         // find the id from proposal
         $document = Document::find($id);
+
+      
      
         $document->swcode = $request->input('swcode');
         $document->filename = $request->input('filename');
-        $document->document = $request->input('document');
+        $document->document = $request->file('document');
+
+        $filename = time() . '.' . $document->document->getClientOriginalExtension();
+        // to store the new file by moving to assets folder
+        $request->document->move('assets', $filename);
+
+        $document->document = $filename;
        
         // upadate query in the database
         $document->update();

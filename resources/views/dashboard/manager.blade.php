@@ -15,10 +15,10 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+                <h5 class="card-title"style="font-size: 30px;">{{$countDisposedSW}}</h5>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Total Disposed Scheduled Waste</h5>
             </div>
         </div>
         </div>
@@ -30,10 +30,10 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+                <h5 class="card-title" style="font-size: 30px;">{{$countPendingSW}}</h5>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Pending Scheduled Waste</h5>
             </div>
         </div>
         </div>
@@ -45,10 +45,10 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+                <h5 class="card-title" style="font-size: 30px;">{{$countTotalSW}}</h5>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Total Scheduled Waste</h5>
             </div>
         </div>
         </div>

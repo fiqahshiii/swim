@@ -10,15 +10,18 @@
 
 <div class="row">
     
-  <div class="col-sm-4">
+<div class="col-sm-4">
     <div class="card">
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+            <div class="user-icon-circle" style="font-size: 35px;">
+                        <i class="fas fa-users"></i>
+                    </div>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Total Users</h5>
+                <h5 class="card-title"style="font-size: 30px;">{{$countEmployee}}</h5>
             </div>
         </div>
         </div>
@@ -30,10 +33,13 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+            <div class="user-icon-circle" style="font-size: 35px;">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Total Transporter</h5>
+                <h5 class="card-title"style="font-size: 30px;">{{$countTransporter}}</h5>
             </div>
         </div>
         </div>
@@ -45,10 +51,13 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
-                <h5 class="card-title">10</h5>
+            <div class="user-icon-circle" style="font-size: 35px;">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
             </div>
             <div class="col-sm-8">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Total Receiver</h5>
+                <h5 class="card-title"style="font-size: 30px;">{{$countReceiver}}</h5>
             </div>
         </div>
         </div>

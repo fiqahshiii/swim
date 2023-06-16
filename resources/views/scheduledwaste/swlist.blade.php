@@ -79,12 +79,7 @@ $(document).ready(function() {
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('swlist') ? 'active' : '' }}" href="{{ route('swlist') }}" role="tab" aria-selected="true">List Of scheduledwaste</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('pendingsw') ? '' : '' }}" href="{{ route('pendingsw') }}" role="tab" aria-selected="true">Pending Scheduled Waste</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('disposedsw') ? '' : '' }}" href="{{ route('disposedsw') }}" role="tab" aria-selected="true">Disposed Scheduled Waste</a>
-                        </li>
+                        
                     </ul>
                 </nav>
             </div>

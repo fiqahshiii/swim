@@ -50,7 +50,7 @@ Route::get('/newwaste', [App\Http\Controllers\WasteController::class, 'NewWaste'
 Route::post('/insertnewwaste', [App\Http\Controllers\WasteController::class, 'insertnewwaste'])->name('insertnewwaste');
 Route::delete('/deleteWaste/{id}', [App\Http\Controllers\WasteController::class, 'deletewaste'])->name('deletewaste');//account nama dekat route sidenav
 Route::get('/displayWaste/{id}', [App\Http\Controllers\WasteController::class, 'displaywaste'])->name('displaywaste');//account nama dekat route sidenav
-Route::get('/editWaste/{id}', [App\Http\Controllers\WasteController::class, 'EditWaste'])->name('editwaste');//account nama dekat route sidenav
+Route::get('/editWaste/{swListID}/{transID}/{receiveID}', [App\Http\Controllers\WasteController::class, 'EditWaste'])->name('editwaste');//account nama dekat route sidenav
 Route::put('/UpdatedWaste/{id}', [App\Http\Controllers\WasteController::class, 'UpdatedWaste'])->name('updatedwaste');//account nama dekat route sidenav
 Route::get('/wastelistManager', [App\Http\Controllers\WasteController::class, 'swlistManager'])->name('swlistManager');
 Route::get('/moredetails/{id}', [App\Http\Controllers\WasteController::class, 'MoreDetails'])->name('moredetails');

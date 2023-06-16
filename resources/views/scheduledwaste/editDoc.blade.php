@@ -30,7 +30,7 @@
 <div class="card">
     <div class="card-body">
         <!-- form add waste -->
-        <form method="POST" action="{{ route('UpdatedDoc',$document->id) }}" id="UpdatedDoc">
+        <form method="POST" action="{{ route('UpdatedDoc',$document->id) }}" id="UpdatedDoc" enctype="multipart/form-data"  >
         @csrf
             @method('PUT')
             <div class="row">
