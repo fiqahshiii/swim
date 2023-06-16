@@ -120,7 +120,8 @@
                         </div>
                         
                         <div class="col">
-                           
+                        <label>Approval</label>
+                        <input type="text" name="approval" class="form-control" value="{{$data->approval}}" disabled>
                          </div>
                     </div>
                     <br>

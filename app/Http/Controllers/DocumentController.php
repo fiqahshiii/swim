@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Document;
+use App\Models\document;
 
 
 class DocumentController extends Controller
@@ -76,7 +76,7 @@ class DocumentController extends Controller
     {
 
         // find the id from proposal
-        $document = Document::find($id);
+        $document = document::find($id);
 
       
      

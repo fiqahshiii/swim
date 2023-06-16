@@ -22,7 +22,7 @@
     <div class="card-body">
     @foreach($wastelist as $index => $data)
         <!-- form add waste -->
-        <form method="POST" action="{{ route('updatedwaste',$data->id) }}" id="wasteform">
+        <form method="POST" action="{{ route('updatedwaste',$data->swListID) }}" id="wasteform">
         @csrf
             @method('PUT')
             <div class="row">
@@ -70,6 +70,7 @@
                             </select>
                         </div>
                     </div>
+       
                     <br>
                     <div class="row">
                         <div class="col">
@@ -141,17 +142,28 @@
                             </select>  
                         </div>
                         </div>
+                        
                         <div class="col">
-                                             
-                         </div>
+                            @if( auth()->user()->category== "Manager")
+                            <label>Approval</label>
+                                <select class="form-control" name="approval"  required>
+                                        <option value="">Please Select</option>
+                                        <option value="Reject">Reject</option>
+                                        <option value="Approve">Approve</option>
+                                </select>
+
+                                @elseif( auth()->user()->category== "Employee")
+                                <label>Approval</label>
+                                <input type="text" name="approval" class="form-control" id="approval" value="{{$data->approval}}" readonly>
+
+                                @endif
+                        </div>              
                     </div>
                 </div> 
-            </div>
+            </div><br>
            <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
-           data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Update</button>
+           data-id="{{ $data->swListID }}" data-name="{{ $data->swListID }}">Update</button>
 
-
-               </div>
              <!-- modal -->
           <div class="modal fade" id="confirmUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">

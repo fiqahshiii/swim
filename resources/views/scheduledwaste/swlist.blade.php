@@ -117,8 +117,9 @@ $(document).ready(function() {
                             <th style="width:10%; text-align:center;">Scheduled Waste</th>
                             <th style="width:10%; text-align:center;">Status</th>
                             <th style="width:10%; text-align:center;">Day Remaining</th> 
-                            <th style="width:20%; text-align:center;">Company Receiver</th>
+                            <th style="width:20%; text-align:center;">Approval</th>
                             <th style="width:25%; text-align:center;">Action</th>
+                            
                         </tr>
                     </thead>
 
@@ -135,7 +136,15 @@ $(document).ready(function() {
                                 {{ $wasteData[$index]['diffInDays'] }} day/days
                             @endif
                         </td>
-                        <td>{{ $data->companyname }}</td>
+
+                        @if ($data->approval == 'Reject')
+                        <td style="color: red; text-align:center;">{{ $data->approval }}</td>
+                        @elseif ($data->approval == 'inprogress')
+                        <td style="color: blue; text-align:center;">{{ $data->approval }}</td>
+                        @elseif($data->approval == 'Approve')
+                        <td style="color:green; text-align:center;">{{ $data->approval }}</td>
+                        @endif
+
                         <td>
                             <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1;">View</a>
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
@@ -156,7 +165,15 @@ $(document).ready(function() {
                                 {{ $wasteData[$index]['diffInDays'] }} day/days
                             @endif
                         </td>
-                        <td>{{ $data->companyname }}</td>
+
+                        @if ($data->approval == 'Reject')
+                        <td style="color: red; text-align:center;">{{ $data->approval }}</td>
+                        @elseif ($data->approval == 'inprogress')
+                        <td style="color: blue; text-align:center;">{{ $data->approval }}</td>
+                        @elseif($data->approval == 'Approve')
+                        <td style="color:green; text-align:center;">{{ $data->approval }}</td>
+                        @endif
+
                         <td style="text-align: center;">
                             <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1; ">View</a>
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>

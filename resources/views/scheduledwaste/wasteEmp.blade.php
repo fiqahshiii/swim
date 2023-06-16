@@ -150,8 +150,7 @@
                         <br>
                         <div class="row">
                             <div class="col">
-                            <div class="col">
-                               
+                            <div class="col">   
                             <label>Receiver</label>
                              
                                     <select class="form-control" name="companyreceiver">
@@ -159,12 +158,13 @@
                                             <option value="{{ $receive->id }}">{{ $receive->companyname }}</option>
                                         @endforeach
                                     </select>
-                             
                             </div>
                             </div>
-                        
                             <div class="col">
-    
+                                <label>Approval</label>
+                                <select class="form-control" name="approval" readonly>
+                                        <option value="inprogress">In-Progress</option>
+                                </select>
                             </div>
                         </div>
                         <br>

@@ -74,7 +74,7 @@ class WasteController extends Controller
 
     public function UpdatedWaste(Request $request, $id)
     {
-        $wastelist = ScheduledWaste::find($id);
+        $wastelist = scheduledwaste::find($id);
 
 
         // Update the waste item with the new values
@@ -91,8 +91,10 @@ class WasteController extends Controller
         $wastelist->expiredDate = $request->input('expiredDate');
         $wastelist->transporter = $request->input('transporter');
         $wastelist->companyreceiver = $request->input('companyreceiver');
+        $wastelist->approval = $request->input('approval');
         // upadate query in the database
         $wastelist->update();
+ 
 
         // display message box in the same page
         return redirect()->back()->with('message', 'Product Updated Successfully');
@@ -250,6 +252,7 @@ class WasteController extends Controller
         $expiredDate = $request->input('expiredDate');
         $transporter = $request->input('transporter');
         $companyreceiver = $request->input('companyreceiver');
+        $approval = $request->input('approval');
 
         $data = array(
             'wastecode' => $wastecode,
@@ -266,6 +269,7 @@ class WasteController extends Controller
             'expiredDate' => $expiredDate,
             'transporter' => $transporter,
             'companyreceiver' => $companyreceiver,
+            'approval' => $approval,
 
         );
 

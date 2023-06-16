@@ -24,6 +24,7 @@ class scheduledwaste extends Model
         'expiredDate',
         'transporter', 
         'companyreceiver', 
+        'approval', 
         'diff', 
 
     ];

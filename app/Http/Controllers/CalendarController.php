@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
-use App\Models\ScheduledWaste;
+use App\Models\scheduledwaste;
 
 
 class CalendarController extends Controller

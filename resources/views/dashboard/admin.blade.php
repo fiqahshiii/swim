@@ -106,7 +106,7 @@
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Scheduled Waste Status',
           pieHole: 0.4,
         };
 

@@ -35,8 +35,23 @@ class DashboardController extends Controller
             ->count();
 
             $countTransporter = DB :: table ('transporter')->count();
+            $countReceiver = DB :: table ('receiver')->count();
+
+            $countApproveSW = DB :: table ('scheduledwaste')
+            ->where ('approval', 'Approve')
+            ->count();
+
+            $countRejectSW = DB :: table ('scheduledwaste')
+            ->where ('approval', 'Reject')
+            ->count();
+
+            $countinprogressSW = DB :: table ('scheduledwaste')
+            ->where ('approval', 'inprogress')
+            ->count();
             
-            return view('dashboard.employee', compact('countDisposedSW','countPendingSW','countTotalSW','countTransporter', 'countAvailTrans','countNonAvailTrans'));
+            return view('dashboard.employee', compact('countDisposedSW','countPendingSW','countTotalSW','countTransporter', 
+            'countAvailTrans','countNonAvailTrans', 'countReceiver',
+            'countApproveSW','countRejectSW', 'countinprogressSW'));
         }
 
         if ($category == 'Manager') {
