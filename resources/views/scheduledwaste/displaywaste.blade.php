@@ -107,9 +107,9 @@
           
                         <div class="col">
                             <label>Transporter</label>
-                            @foreach ($transporterlist as $trans)
-                            <input type="text" name="transporter" class="form-control" value="{{ $trans->fullname}}" disabled>
-                            @endforeach
+                             
+                            <input type="text" name="transporter" class="form-control" value="{{ $data->transporterName}}" disabled>
+                            
                         </div>
                     </div>
                     <br>

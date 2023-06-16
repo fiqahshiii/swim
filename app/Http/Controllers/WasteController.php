@@ -292,7 +292,8 @@ class WasteController extends Controller
             'transporter.id AS transID',
             'scheduledwaste.id AS swListID',
             'receiver.id AS receiveID',  
-            'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*'
+            'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*',
+            'transporter.fullname AS transporterName'
         ])
         ->where('scheduledwaste.id', $id)
         ->get();
