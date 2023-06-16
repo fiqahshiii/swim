@@ -123,9 +123,9 @@
                         <div class="col">
                             <label>Transporter</label>
                             <select class="form-control" name="transporter">
-                         
-                                    <option value="{{ $data->id }}">{{ $data->transporterName }}</option>
-                          
+                            @foreach($transporterlist As $key=>$trans)
+                                    <option value="{{ $trans->id }}">{{ $trans->fullname }}</option>
+                                @endforeach
                             </select>                      
                          </div>
                     </div>
@@ -135,9 +135,9 @@
                         <div class="col">
                         <label>Receiver</label>
                             <select class="form-control" name="companyreceiver">
-                            
-                                    <option value="{{ $data->id }}">{{ $data->companyname }}</option>
-                          
+                            @foreach($receiverlist As $key=>$receive)
+                                    <option value="{{ $receive->id }}">{{ $receive->companyname }}</option>
+                                    @endforeach
                             </select>  
                         </div>
                         </div>
