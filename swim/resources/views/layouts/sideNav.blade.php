@@ -263,7 +263,7 @@
                                 <a class="dropdown-item text-danger" href="{{ route('account', Auth::user()->id) }}" style="color: black !important;">
                                 <i class="material-icons text-danger" style="color: black !important;">settings</i> My Profile </a>
 
-                                <a class="dropdown-item text-danger" href="{{ route('ResetPassword', Auth::user()->id) }}" style="color: black !important;">
+                                <a class="dropdown-item text-danger" href="{{ route('change-password', Auth::user()->id) }}" style="color: black !important;">
                                 <i class="material-icons text-danger" style="color: black !important;">settings</i> Change Password </a>
 
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();

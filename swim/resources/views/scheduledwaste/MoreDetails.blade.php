@@ -48,6 +48,7 @@ table {
 @endif
 
 @foreach($wastelist as $index => $data)
+
 <div class="print-content">
 <div class="card">
     <div class="card-body">
@@ -201,7 +202,9 @@ table {
     </div>
 </div><br>
 </div>
+
 @endforeach
+
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

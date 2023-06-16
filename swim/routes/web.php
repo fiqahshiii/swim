@@ -31,8 +31,8 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'load
 //user
 Route::get('/viewacc/{id}', [App\Http\Controllers\AccountController::class, 'AccountSetting'])->name('account');//account nama dekat route sidenav
 Route::put('/updateprofile/{id}', [App\Http\Controllers\AccountController::class, 'UpdateProfile'])->name('updateprofile');//account nama dekat route sidenav
-Route::get('/passwordreset/{id}', [App\Http\Controllers\AccountController::class, 'ResetPassword'])->name('ResetPassword');//account nama dekat route sidenav
-Route::post('/password/reset', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('account.updatePassword');//account nama dekat route sidenav
+Route::get('/change-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
+Route::post('/change-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
 
 //Attendnace
 Route::get('/attendance', [App\Http\Controllers\AccountController::class, 'attendance'])->name('attendance');

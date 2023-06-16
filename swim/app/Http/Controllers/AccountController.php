@@ -205,26 +205,32 @@ class AccountController extends Controller
     }
 
     public function updatePassword(Request $request)
-{
-    $user = Auth::user();
+    {
+            # Validation
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|confirmed',
+            ]);
 
-    $request->validate([
-        'old_password' => 'required',
-        'password' => 'required|min:8|confirmed',
-    ]);
 
-    // Check if the old password matches the user's current password
-    if (!Hash::check($request->old_password, $user->password)) {
-        return redirect()->back()->with('error', 'Old password is incorrect.');
+            #Match The Old Password
+            if(!Hash::check($request->old_password, auth()->user()->password)){
+                return back()->with("error", "Old Password Doesn't match!");
+            }
+
+
+            #Update the new Password
+            User::whereId(auth()->user()->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+
+            return back()->with("status", "Password changed successfully!");
     }
-
-    // Update the user's password
-    $user->password = Hash::make($request->password);
-    $user->save();
-
-    return redirect()->back()->with('message', 'Password updated successfully.');
-}
-
+    
+    public function changePassword()
+    {
+    return view('account.changePwd');
+    }
     
     
 
