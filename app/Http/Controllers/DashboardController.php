@@ -26,13 +26,18 @@ class DashboardController extends Controller
 
             $countTotalSW = DB :: table ('scheduledwaste')->count();
 
-            $countAvailTrans = DB :: table ('transporter')
+            $c = DB :: table ('transporter')
             ->where ('status', 'Available')
             ->count();
 
             $countNonAvailTrans = DB :: table ('transporter')
             ->where ('status', 'Non-Available')
             ->count();
+
+            $countAvailTrans = DB :: table ('transporter')
+            ->where ('status', 'Available')
+            ->count();
+
 
             $countTransporter = DB :: table ('transporter')->count();
             $countReceiver = DB :: table ('receiver')->count();

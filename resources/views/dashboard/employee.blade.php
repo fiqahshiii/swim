@@ -97,8 +97,8 @@
         donutChart.draw(donutData, donutOptions);
 
         var columnData = google.visualization.arrayToDataTable([
-            ['', 'Transporter', 'Receiver'],
-            ['Consignment', {{ $countTransporter }}, {{ $countReceiver }}]
+            ['', 'Transporter', 'Available', 'Non-Available',  'Receiver'],
+            ['Consignment', {{ $countTransporter }}, {{ $countAvailTrans }}, {{ $countNonAvailTrans }}, {{ $countReceiver }}]
         ]);
 
         var columnOptions = {
