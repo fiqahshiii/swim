@@ -59,7 +59,7 @@
     <div class="col-sm-8">
         <div class="card">
             <div class="card-body">
-                <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                <div id="columnchart_material" style="width: 800px; height: ;"></div>
             </div>
         </div>
     </div>
@@ -75,6 +75,8 @@
 </div><br>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart', 'bar']});

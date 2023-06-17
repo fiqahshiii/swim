@@ -119,8 +119,6 @@
             </div>
         </div>
     </div>
-
-
 </div><br>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>

@@ -100,6 +100,7 @@
                             </td>
                             <td><a type="button" class="btn btn-primary" href="{{ route('displayuser', $data->id)}}">View</a> 
                             <a type="button" class="btn btn-danger" href="{{ route('deleteUser', $data->id)}}">Delete</a></td>
+                            
                         </tr>
                         @endforeach
                     </tbody>

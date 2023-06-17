@@ -147,8 +147,8 @@ $(document).ready(function() {
 
                         <td>
                             <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1;">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
-
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" 
+                            data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
                         </td>                        
                     </tr>
                     @endforeach
@@ -184,54 +184,12 @@ $(document).ready(function() {
                 @endforeach
                 @endif
                 </tbody>
-                
                 </table>
-                
-                @endif
-                
+                @endif 
             </div>
         </div>
     </div>
-    
 </div><br>
-
-<!-- script -> days remaining -->
-<script>
-   const endDateInput = document.getElementById('wasteDate');
-
-// Get the value of the input field and convert it to a Date object
-const endDate = new Date(endDateInput.value);
-
-// Calculate the time remaining in days
-const timeDiff = endDate.getTime() - Date.now();
-const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-// Update the text on the page with the remaining time
-document.getElementById('remaining-time').textContent = daysRemaining;
-
-<Script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-// Initiate an Ajax request on button click
-$(document).on("click", "button", function(){
-    // Adding timestamp to set cache false
-    $.get("/examples/php/customers.php?v="+ $.now(), function(data){
-        $("body").html(data);
-    });       
-});
-
-// Add remove loading class on body element depending on Ajax request status
-$(document).on({
-    ajaxStart: function(){
-        $("body").addClass("loading"); 
-    },
-    ajaxStop: function(){ 
-        $("body").removeClass("loading"); 
-    }    
-});
-</script>
-</script>
 
 <script>
 function deleteItem(e) {
@@ -296,7 +254,43 @@ function deleteItem(e) {
 }
 </script>
 
+<!-- script -> days remaining -->
+<script>
+   const endDateInput = document.getElementById('wasteDate');
 
+// Get the value of the input field and convert it to a Date object
+const endDate = new Date(endDateInput.value);
+
+// Calculate the time remaining in days
+const timeDiff = endDate.getTime() - Date.now();
+const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+// Update the text on the page with the remaining time
+document.getElementById('remaining-time').textContent = daysRemaining;
+
+<Script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+// Initiate an Ajax request on button click
+$(document).on("click", "button", function(){
+    // Adding timestamp to set cache false
+    $.get("/examples/php/customers.php?v="+ $.now(), function(data){
+        $("body").html(data);
+    });       
+});
+
+// Add remove loading class on body element depending on Ajax request status
+$(document).on({
+    ajaxStart: function(){
+        $("body").addClass("loading"); 
+    },
+    ajaxStop: function(){ 
+        $("body").removeClass("loading"); 
+    }    
+});
+</script>
+</script>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <Script>

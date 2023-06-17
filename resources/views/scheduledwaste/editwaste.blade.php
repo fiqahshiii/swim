@@ -144,7 +144,7 @@
                         </div>
                         
                         <div class="col">
-                            @if( auth()->user()->category== "Manager")
+                            @if( auth()->user()->category== "Manager" || auth()->user()->category== "Admin")
                             <label>Approval</label>
                                 <select class="form-control" name="approval"  required>
                                         <option value="">Please Select</option>
@@ -152,7 +152,7 @@
                                         <option value="Approve">Approve</option>
                                 </select>
 
-                                @elseif( auth()->user()->category== "Employee")
+                                @elseif( auth()->user()->category== "Employee" )
                                 <label>Approval</label>
                                 <input type="text" name="approval" class="form-control" id="approval" value="{{$data->approval}}" readonly>
 
