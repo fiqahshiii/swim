@@ -62,7 +62,7 @@
 
             @if(request()->routeIs('translist'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-                <a class="btn btn-primary" style="float: right; " role="button" href="{{ route('newtransporter') }}">
+                <a class="btn btn-primary" style="float: right; background: #4775d1" role="button" href="{{ route('newtransporter') }}">
                     <i class="fas fa-plus"></i>&nbsp; Create New Transporter</a>
             </div>
             @else
@@ -103,7 +103,7 @@
                             <td>{{ $data->phonenum }}</td>
                             <td>{{ $data->status }}</td>
                             <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displaytrans', $data->id) }}">View</a>
+                            <a type="button" class="btn btn-primary" style="background: #4775d1" href="{{ route('displaytrans', $data->id) }}">View</a>
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" 
                             data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
                             <a href="{{ route('getEmailTrans', $data->id) }}"><button class="btn"  style="background: #002b80; color: white; " type="button">Email</button></a>

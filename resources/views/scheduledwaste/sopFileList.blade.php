@@ -93,7 +93,7 @@
                         <td>{{ $data->swcode }}</td>
                         <td>{{ $data->filename }}</td>
                         <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displayDoc', $data->id)}}">View</a> 
+                            <a type="button" class="btn btn-primary" href="{{ route('displayDoc', $data->id)}}" style="background: #4775d1; ">View</a> 
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swcode }}" data-name="{{ $data->filename }}">Delete</button>
                         </td>
                          @endforeach

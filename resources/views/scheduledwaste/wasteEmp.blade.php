@@ -2,7 +2,7 @@
 
     @section('content')
     <h4>Scheduled Waste</h4>
-    <h6>Add New Waste</h6>
+    <h6>Add New Waste</h6><br>
 
     <!-- message box if the new waste has been added -->
     @if(session()->has('message'))
@@ -22,6 +22,8 @@
         input[type=text], textarea{
         text-transform: capitalize;
     }
+
+  
         </style>
 
     <script>
@@ -32,6 +34,9 @@
     });
     </script>
     </head>
+
+    <a href="{{ route('swlist') }}" style="color: white; background:#000066; border-radius: 3px; height:3px; padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
+
     <div class="card">
         <div class="card-body">
             
@@ -171,7 +176,7 @@
                     </div>
                     
                 </div>
-                <input type="submit" name="SubmitWaste" class="btn btn-primary btn-bg-color btn-sm col-xs-2 margin-right" id="wasteform" style="float: right;" onclick="startCountdown()">   
+                <input type="submit" name="SubmitWaste" class="btn btn-primary btn-bg-color btn-sm col-xs-2 margin-right" id="wasteform" style="float: right; background:#000066;" onclick="startCountdown()">   
             </form>
         </div>
     </div><br>

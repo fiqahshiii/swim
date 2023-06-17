@@ -2,7 +2,7 @@
 
 @section('content')
 <h4>Scheduled Waste</h4>
-<h6>Update Scheduled Waste Details</h6>
+<h6>Update Scheduled Waste Details</h6><br>
 <style>
      input[type=text]{
         text-transform: capitalize;
@@ -18,10 +18,14 @@
 </div>
 @endif
 
-<div class="card">
-    <div class="card-body">
+
+
     @foreach($wastelist as $index => $data)
         <!-- form add waste -->
+        <a href="{{ route('displaywaste',$data->swListID) }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
+<div class="card">
+    <div class="card-body">
         <form method="POST" action="{{ route('updatedwaste',$data->swListID) }}" id="wasteform">
         @csrf
             @method('PUT')
@@ -161,7 +165,7 @@
                     </div>
                 </div> 
             </div><br>
-           <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
+           <button class="btn btn-primary" style="float: right; background:#000066;" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
            data-id="{{ $data->swListID }}" data-name="{{ $data->swListID }}">Update</button>
 
              <!-- modal -->
@@ -188,8 +192,8 @@
                     </div>
             <!-- end of modal -->
 
-        </form> 
-</div><br> 
+        </form><br>
+</div>
 @endforeach
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>

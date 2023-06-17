@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Mail\MyTestMail;
 
-use App\Models\scheduledwaste;
+use App\Models\ScheduledWaste;
 
 class WasteController extends Controller
 {
@@ -285,7 +285,7 @@ class WasteController extends Controller
 
         if ($request->ajax()) {
 
-            scheduledwaste::where('id', '=', $id)->delete();
+            ScheduledWaste::where('id', '=', $id)->delete();
             return response()->json(array('success' => true));
         }
     }
@@ -374,33 +374,7 @@ class WasteController extends Controller
            
         }  
 
-        public function MoreDetails(Request $request, $id)
-    {         
-        
-        $transporterlist = DB::table('transporter')
-        ->where('status', '!=', 'Non-Available')
-        ->get();
-
-        $receiverlist = DB::table('receiver')
-            ->get();
-
-        $wastelist = DB::table('scheduledwaste')
-        ->join('users', 'users.id','=','scheduledwaste.pic')
-        ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
-        ->join('receiver', 'receiver.id','=','scheduledwaste.companyreceiver')
-        ->select([
-            'users.id AS userID',
-            'transporter.id AS transID',
-            'scheduledwaste.id AS swListID',
-            'receiver.id AS receiveID',  
-            'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*'
-        ])
-        ->where('scheduledwaste.id', $id)
-        ->get();
-        
-        return view('scheduledwaste.MoreDetails', ['wastelist' => $wastelist], compact('transporterlist','receiverlist'));
-          
-    }
+      
         
         
 

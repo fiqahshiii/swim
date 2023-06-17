@@ -1,6 +1,6 @@
 @extends('layouts.sideNav')
 @section('content')
-<h4>Add New File</h4>
+<h4>Update File</h4><br>
 
 <head>
     <style>
@@ -27,10 +27,13 @@
 
 
 <!-- Page Header -->
-<div class="card">
-    <div class="card-body">
+
         <!-- form add waste -->
         <form method="POST" action="{{ route('UpdatedDoc',$document->id) }}" id="UpdatedDoc" enctype="multipart/form-data"  >
+        <a href="{{ route('displayDoc', $document->id) }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+    padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
+<div class="card">
+<div class="card-body">
         @csrf
             @method('PUT')
             <div class="row">
@@ -68,7 +71,7 @@
                 </div>
             </div>
             <br>
-            <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
+            <button class="btn btn-primary" style="float: right; background:#000066;" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  
            data-id="{{ $document->id }}" data-name="{{ $document->swcode }}">Update</button>    </div>
     <!-- modal -->
     <div class="modal fade" id="confirmUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

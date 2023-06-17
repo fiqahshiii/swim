@@ -103,7 +103,7 @@ class ReceiverController extends Controller
 
         if ($request->ajax()) {
 
-            transporter::where('id', '=', $id)->delete();
+            receiver::where('id', '=', $id)->delete();
             return response()->json(array('success' => true));
         }
     }

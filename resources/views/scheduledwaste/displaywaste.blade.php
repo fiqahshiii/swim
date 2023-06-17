@@ -2,7 +2,7 @@
 
 @section('content')
 <h4>Scheduled Waste</h4>
-<h6>Display Scheduled Waste</h6>
+<h6>Display Scheduled Waste</h6><br>
 <head>
     <style>
           @media print {
@@ -28,6 +28,10 @@
     {{ session()->get('message') }}
 </div>
 @endif
+
+<a href="{{ route('swlist') }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
+
 @foreach($wastelist as $index => $data)
 <div class="print-content">
 <div class="card">
@@ -126,8 +130,8 @@
                     </div>
                     <br>
                 </div> 
-            </div>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" 
+            </div><br>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white; background:#000066;" 
             href="{{ route('editwaste',['swListID' => $data->swListID, 'transID' => $data->transID, 'receiveID' => $data->receiveID ]) }}">Edit</a>
 
     </div>

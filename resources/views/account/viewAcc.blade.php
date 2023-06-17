@@ -81,7 +81,7 @@
                                     <input type="email" name="email" class="form-control" value="{{$user->email}}" required>
                                 </div>  
                             </div><br>
-                            <button type="button" class="btn btn-primary" style="background-color: #007bff; border-radius: 10px; border: none; width: 100px; color: white; font-size: 15px; float: right" data-bs-toggle="modal" data-bs-target="#confirmUpdate">
+                            <button type="button" class="btn btn-primary" style="background:#000066; border-radius: 10px; border: none; width: 100px; color: white; font-size: 15px; float: right" data-bs-toggle="modal" data-bs-target="#confirmUpdate">
                             <b>UPDATE</b></button>  
                         </div>           
                     </div><br>   

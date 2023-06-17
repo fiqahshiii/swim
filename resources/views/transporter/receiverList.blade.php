@@ -38,6 +38,8 @@
 </div>
 @endif
 
+
+
 <div class="card">
     <div class="card-header pb-0">
         <div class="row">
@@ -56,7 +58,7 @@
 
             @if(request()->routeIs('receiverlist'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
-                <a class="btn btn-primary" style="float: right; " role="button" href="{{ route('newreceiver') }}">
+                <a class="btn btn-primary" style="float: right; background: #4775d1" role="button" href="{{ route('newreceiver') }}">
                     <i class="fas fa-plus"></i>&nbsp; Create New Receiver</a>
             </div>
             @else
@@ -93,7 +95,7 @@
                             <td>{{ $data->fullname }}</td>
                             <td>{{ $data->phonenum }}</td>
                             <td>
-                            <a type="button" class="btn btn-primary" href="{{ route('displayReceiver', $data->id) }}">View</a>
+                            <a type="button" class="btn btn-primary" style="background: #4775d1"  href="{{ route('displayReceiver', $data->id) }}">View</a>
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
                             </td>
                         </tr>

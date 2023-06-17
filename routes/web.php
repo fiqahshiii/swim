@@ -48,7 +48,7 @@ Route::get('/pendingsw', [App\Http\Controllers\WasteController::class, 'pendingW
 Route::get('/disposedsw', [App\Http\Controllers\WasteController::class, 'disposedWaste'])->name('disposedsw');
 Route::get('/newwaste', [App\Http\Controllers\WasteController::class, 'NewWaste'])->name('wasteEmp');//wasteEmp--> tak kisah nama apa2 yang kita nak panggil tu dekat next page
 Route::post('/insertnewwaste', [App\Http\Controllers\WasteController::class, 'insertnewwaste'])->name('insertnewwaste');
-Route::delete('/deleteWaste/{id}', [App\Http\Controllers\WasteController::class, 'deletewaste'])->name('deletewaste');//account nama dekat route sidenav
+Route::delete('/deleteWaste/{id}', [App\Http\Controllers\WasteController::class, 'deletewaste'])->name('deleteWaste');//account nama dekat route sidenav
 Route::get('/displayWaste/{id}', [App\Http\Controllers\WasteController::class, 'displaywaste'])->name('displaywaste');//account nama dekat route sidenav
 Route::get('/editWaste/{swListID}/{transID}/{receiveID}', [App\Http\Controllers\WasteController::class, 'EditWaste'])->name('editwaste');//account nama dekat route sidenav
 Route::put('/UpdatedWaste/{id}', [App\Http\Controllers\WasteController::class, 'UpdatedWaste'])->name('updatedwaste');//account nama dekat route sidenav

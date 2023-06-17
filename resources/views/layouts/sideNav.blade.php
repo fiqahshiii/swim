@@ -261,7 +261,7 @@
                                 <div class="dropdown-divider"></div>
                                 
                                 <a class="dropdown-item text-danger" href="{{ route('account', Auth::user()->id) }}" style="color: black !important;">
-                                <i class="material-icons text-danger" style="color: black !important;">settings</i> My Profile </a>
+                                <i class="material-icons text-danger" style="color: black !important;">person</i> My Profile </a>
 
                                 <a class="dropdown-item text-danger" href="{{ route('change-password', Auth::user()->id) }}" style="color: black !important;">
                                 <i class="material-icons text-danger" style="color: black !important;">settings</i> Change Password </a>

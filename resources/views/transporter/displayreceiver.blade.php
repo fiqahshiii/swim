@@ -2,7 +2,7 @@
 
 @section('content')
 <h4>Receiver</h4>
-<h6>Add New Receiver</h6>
+<h6>Add New Receiver</h6><br>
 
 <!-- message box if the new proposal has been added -->
 @if(session()->has('message'))
@@ -42,6 +42,9 @@ $(document).ready(function(){
 });
 </script>
 </head>
+
+<a href="{{ route('receiverlist') }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
 <div class="card">
     <div class="card-body">
     <h6><b>COMPANY DETAILS</h6></b>
@@ -125,7 +128,7 @@ $(document).ready(function(){
                
             
             </div><br>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editReceiver', $receiverlist->id) }}">Edit</a>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white;  background:#000066;" href="{{ route('editReceiver', $receiverlist->id) }}">Edit</a>
         </form>
     </div>
    

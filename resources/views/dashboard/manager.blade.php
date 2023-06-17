@@ -61,7 +61,7 @@
     <div class="col-sm-8">
         <div class="card">
             <div class="card-body" style="padding: 40px; padding-bottom: 40px;">
-                <div id="columnchart_material" style="width: 800px; height: ;"></div>
+                <div id="columnchart_material" style="width: 250px; height: ;"></div>
             </div>
         </div>
     </div>

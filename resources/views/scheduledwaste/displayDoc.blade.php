@@ -1,6 +1,6 @@
 @extends('layouts.sideNav')
 @section('content')
-<h4>Add New File</h4>
+<h4>Add New File</h4><br>
 
 <head>
     <style>
@@ -29,6 +29,8 @@
 </div>
 @endif
 
+<a href="{{ route('swfile') }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
 
 <!-- Page Header -->
 <div class="card">
@@ -69,7 +71,7 @@
                 </div>
             </div>
             <br>
-            <a class="btn btn-primary" id="waste" style="float: right; color:white" href="{{ route('editDoc', $document->id) }}">Edit</a>
+            <a class="btn btn-primary" id="waste" style="float: right; color:white; background:#000066;" href="{{ route('editDoc', $document->id) }}">Edit</a>
     </div>
 </div><br>
 

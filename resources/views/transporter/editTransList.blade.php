@@ -48,9 +48,12 @@ $(document).ready(function(){
 </head>
 
 
-<div class="card">
-    <div class="card-body">
+
     <form method="POST" action="{{ route('UpdatedTrans', $translist->id) }}" id="translist">
+    <a href="{{ route('displaytrans', $translist->id) }}" style="color: white; background:#000066; border-radius: 3px; height:3px; 
+padding: 5px 10px; text-decoration: none;" class="previous">&laquo; Previous</a><br><br>
+<div class="card">
+<div class="card-body">
         @csrf
             @method('PUT')
                     <h6><b>COMPANY DETAILS</h6></b> 
@@ -122,7 +125,7 @@ $(document).ready(function(){
                     </div>
                     <br>
             </div><br>
-            <button class="btn btn-primary" style="float: right" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  data-id="{{ $translist->id }}" data-name="{{ $translist->fullname }}">Update</button>
+            <button class="btn btn-primary" style="float: right; background:#000066;" type="button" data-bs-toggle="modal" data-bs-target="#confirmUpdate"  data-id="{{ $translist->id }}" data-name="{{ $translist->fullname }}">Update</button>
             <!-- modal -->
              <div class="modal fade" id="confirmUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
