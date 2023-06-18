@@ -17,68 +17,66 @@
 </div>
 @endif
 
-<div class="card">
+    <div class="card">
         <div class="card-body">
-            
-            <!-- form add waste -->
             <form method="get" action="{{ route('generatereport') }}">
-                @csrf
                 <div class="row">
+                    <div class="col mb-3">
+                        <label>Scheduled Waste Due Date</label>
+                        <input type="date" name="expiredDate" class="form-control" id="expiredDate">
+                    </div>
+
                     <div class="col">
-                        <div class="row">
-                            <div class="col">
-                            <label>Scheduled Waste Due Date</label>
-                                <input type="date" name="expiredDate" class="form-control" id="expiredDate" required>
-                            </div>
-                            <div class="col">
-                               
-                            </div>
-                            <div class="col">
-                                <label></label>
-                                <div class="col"><button class="btn btn-primary" style="float: right; background: #4775d1;">Generate Report</button></div>                            </div>
-
-                        </div>
-                        <br>
                         
-                    </div> 
+                    </div>
                 </div>
-
-                
-
-                <div class="overflow-auto" style="overflow:auto;">
-                    <div class="table-responsive">
-                        @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee" || auth()->user()->category== "Admin")
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                        <div style="float: right; margin-bottom: 10px;">
-                        @if($exportData)
-                        <a href="{{ route('exportPDFAll', ['exportData' => $data]) }}" style="background: #4775d1" class="btn btn-primary">
-                            <i class="material-icons">print</i> Export PDF</a>
-                            <a href="{{ route('exportExcelAll', ['exportData' => $data]) }}" 
-                            class="btn btn-primary" style="background: #4775d1"><i class="material-icons">print</i> Export Excel</a>
-
-                        @else
-                        <a href="{{ route('exportPDFGenerated', ['exportData' => $data, 'expiredDate' => $expiredDate]) }}" style="background: #4775d1" class="btn btn-primary">
-                        <i class="material-icons">print</i> Export PDF
-                        </a>
-                        <a href="{{ route('exportExcelGenerated', ['exportData' => $data, 'expiredDate' => $expiredDate]) }}" 
-                        class="btn btn-primary" style="background: #4775d1"><i class="material-icons" >print</i> Export Excel</a>
-                        @endif
+                <br>
+                <div class="row">
+                    <div class="col"><button class="btn btn-primary" style="float: right; background: #4775d1;">Generate Report</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>   
+    
+    <div class="card">
+        <div class="card-header pb-0">
+            <div style="float: right; margin-bottom: 10px;">
+                @if($exportData)
               
-                </div>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Scheduled Waste Code</th>
-                                    <th>Expired Date</th>
-                                    <th>Status</th>
-                                    <th>Officer</th>
-                                    
-                                </tr>
-                            </thead>
+                    <button type="button" id="printBtn" class="btn btn-dark" style="float: right;  background: #4775d1; border:none; border-radius:3px;" 
+                    onclick="printCard()"><i class="material-icons">print</i>Print PDF</button>
+               
 
-                            <tbody>
-                            @php
+                <a href="{{ route('exportExcelAll', ['exportData' => $data]) }}" class="btn btn-primary" style="background: #4775d1; border-color: #007bff;"  ><i class="material-icons">print</i> Export Excel</a>
+                @else
+
+            
+                    <button type="button" id="printBtn" class="btn btn-dark" style="float: right;  background: #4775d1; border:none; border-radius:3px;" 
+                    onclick="printCard()"><i class="material-icons">print</i>Print PDF</button>
+               
+                <a href="{{ route('exportExcelGenerated', ['exportData' => $data, 'expiredDate' => $expiredDate]) }}" class="btn btn-primary" style="background: #4775d1; border-color: #007bff;" ><i class="material-icons">print</i> Export Excel</a>
+                @endif
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="overflow-auto" style="overflow:hidden;">
+                <div class="table-responsive">
+                @if( auth()->user()->category== "Manager" || auth()->user()->category== "Employee" || auth()->user()->category== "Admin")
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                    <th>ID</th>
+                                    <th>SWCode</th>
+                                    <th>Expired Date</th>
+                                    <th>Officer In Charge</th>
+                                    <th>Transporter</th>
+                                    <th>Receiver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @php
                             $counter = 1;
                             @endphp
                             @foreach($reportlist As $key=>$data)
@@ -86,23 +84,21 @@
                                 <td>{{ $counter }}</td>
                                 <td>{{ $data->wastecode }}</td>
                                 <td>{{ $data->expiredDate }}</td>
-                                <td>{{ $data->status }}</td>
                                 <td>{{ $data->fullname }}</td>
+                                <td>{{ $data->phonenum }}</td>
+                                <td>{{ $data->companyname }}</td>
                             </tr>
                             @php
                             $counter++;
                             @endphp
                             @endforeach
-                            </tbody>
-                        </table>
-
-                        @endif
-                        <!-- FOR Manager TO VIEW RECORD APPOINTNMENT LIST END -->
-                    </div>
+                        </tbody>
+                    </table>
+                    @endif
+                </div>
+            </div>
         </div>
-            </form>
-        </div>
-</div><br>
+    </div><br>
 
 <script>
     function setMinDate() {
@@ -116,6 +112,30 @@
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
+<script>
+    function printCard() {
+        // Open a new window
+        var printWindow = window.open('', '_blank');
 
+        // Get the HTML content of the table
+        var tableContent = document.querySelector('#dataTable').outerHTML;
+
+        // Create a new HTML document
+        var printDocument = '<!DOCTYPE html><html><head>';
+        printDocument += '<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid #000; padding: 8px; }</style>';
+        printDocument += '</head><body>';
+        printDocument += '<h1>Scheduled Waste List</h1>'; // Add your desired title here
+        printDocument += '<table>' + tableContent + '</table>';
+        printDocument += '</body></html>';
+
+        // Write the HTML content to the new window
+        printWindow.document.open();
+        printWindow.document.write(printDocument);
+        printWindow.document.close();
+
+        // Print the new window
+        printWindow.print();
+    }
+</script>
 
 @endsection

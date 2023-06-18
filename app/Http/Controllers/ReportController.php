@@ -198,7 +198,7 @@ class ReportController extends Controller
         // Generate PDF using Dompdf
         $dompdf = new Dompdf();
         $dompdf->loadHtml($table);
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
 
         // Generate a unique filename for the PDF

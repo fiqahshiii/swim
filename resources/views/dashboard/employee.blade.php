@@ -32,7 +32,7 @@
                         <h5 class="card-title" style="font-size: 30px;">{{$countPendingSW}}</h5>
                     </div>
                     <div class="col-sm-8">
-                        <h5 class="card-title">Pending Scheduled Waste</h5>
+                        <h5 class="card-title">Total Pending Scheduled Waste</h5>
                     </div>
                 </div>
             </div>
