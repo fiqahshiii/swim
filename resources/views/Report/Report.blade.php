@@ -84,8 +84,8 @@
                                 <td>{{ $counter }}</td>
                                 <td>{{ $data->wastecode }}</td>
                                 <td>{{ $data->expiredDate }}</td>
+                                <td>{{ $data->name }}</td>
                                 <td>{{ $data->fullname }}</td>
-                                <td>{{ $data->phonenum }}</td>
                                 <td>{{ $data->companyname }}</td>
                             </tr>
                             @php
