@@ -54,12 +54,15 @@
                         @if($exportData)
                         <a href="{{ route('exportPDFAll', ['exportData' => $data]) }}" style="background: #4775d1" class="btn btn-primary">
                             <i class="material-icons">print</i> Export PDF</a>
+                            <a href="{{ route('exportExcelAll', ['exportData' => $data]) }}" 
+                            class="btn btn-primary" style="background: #4775d1"><i class="material-icons">print</i> Export Excel</a>
+
                         @else
                         <a href="{{ route('exportPDFGenerated', ['exportData' => $data, 'expiredDate' => $expiredDate]) }}" style="background: #4775d1" class="btn btn-primary">
                         <i class="material-icons">print</i> Export PDF
                         </a>
-
-
+                        <a href="{{ route('exportExcelGenerated', ['exportData' => $data, 'expiredDate' => $expiredDate]) }}" 
+                        class="btn btn-primary" style="background: #4775d1"><i class="material-icons" >print</i> Export Excel</a>
                         @endif
               
                 </div>

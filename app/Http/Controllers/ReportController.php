@@ -223,7 +223,15 @@ class ReportController extends Controller
                 ->join('users', 'users.id','=','scheduledwaste.pic')
                 ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
                 ->join('receiver', 'receiver.id','=','scheduledwaste.companyreceiver')
-                
+                ->select([
+                    'users.id AS userID',
+                    'transporter.id AS transID',
+                    'scheduledwaste.id AS swListID',
+                    'receiver.id AS receiveID',
+                    'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*',
+                    'transporter.fullname AS transporterName'
+                ])
+                ->where('expiredDate', [$expiredDate])
                 ->get();
             } else {
                 // Handle other cases if needed
@@ -234,46 +242,103 @@ class ReportController extends Controller
             $data = null;
         }
 
+        
         // Generate HTML table markup
-        $table = '<h3>Record List</h3>';
+        $table = '<h3>Scheduled Waste Record</h3>';
         $table .= '<table style="border-collapse: collapse; width: 100%;">';
         $table .= '<thead>';
+
         $table .= '<tr>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">ID</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Waste Code</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Weight(mt)</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Waste Description</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Disposal Site</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Waste Type</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Packaging</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Physical State</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Person In Charge</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Waste Generated Date</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Waste Expired Date</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Transporter</th>';
-        $table .= '<th style="border: 1px solid #000; padding: 8px;">Receiver</th>';
-        $table .= '</tr>';
-        $table .= '</thead>';
-        $table .= '<tbody>';
-
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">ID</th>';
         foreach ($data as $record) {
-            $table .= '<tr>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->id . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastecode . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->weight . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastedescription . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->disposalsite . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastetype . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->packaging . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->state . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->pic . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wasteDate . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->expiredDate . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->transporter . '</td>';
-            $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->companyreceiver . '</td>';
-
-            $table .= '</tr>';
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->id . '</td>';
         }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Waste Code</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastecode . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Weight(mt)</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->weight . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Waste Description</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastedescription . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Disposal Site</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->disposalsite . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Waste Type</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wastetype . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Packaging</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->packaging . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Physical State</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->state . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Person In Charge</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->fullname . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Waste Generated Date</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->wasteDate . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Waste Expired Date</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->expiredDate . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Transporter</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->transporterName . '</td>';
+        }
+        $table .= '</tr>';
+
+        $table .= '<tr>';
+        $table .= '<th style="border: 1px solid #000; padding: 8px; text-align: left;">Receiver</th>';
+        foreach ($data as $record) {
+        $table .= '<td style="border: 1px solid #000; padding: 8px;">' . $record->companyname . '</td>';
+        }
+        $table .= '</tr>';
+
         $table .= '</tbody>';
         $table .= '</table>';
 
@@ -291,6 +356,124 @@ class ReportController extends Controller
 
         // Return the file download response
         return response()->download(public_path('storage/' . $filename))->deleteFileAfterSend(true);
+    }
+
+    public function exportExcelAll($exportData)
+    {
+        if ($exportData) {
+
+            if ($exportData == 'AllReport') {
+                // Query for all report
+                $data = DB::table('scheduledwaste')
+                ->orderBy('scheduledwaste.id', 'desc')
+                ->join('users', 'users.id','=','scheduledwaste.pic')
+                ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
+                ->join('receiver', 'receiver.id','=','scheduledwaste.companyreceiver')
+                ->select([
+                    'users.id AS userID',
+                    'transporter.id AS transID',
+                    'scheduledwaste.id AS swListID',
+                    'receiver.id AS receiveID',
+                    'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*',
+                    'transporter.fullname AS transporterName'
+                ])
+                ->where('expiredDate', [$expiredDate])
+                ->get();
+            } else {
+                // Handle other cases if needed
+                // For example, if no button is clicked
+                $data = null;
+            }
+        } else {
+            $data = null;
+        }
+
+        // Generate the CSV content
+        $csv = "ID,Waste Code,Weight (mt),Waste Description,Disposal Site,Waste Type,Packaging, Physical State, Person In Charge, Waste Generated Date, Waste Expired Date, Transporter, Receiver\r\n";
+
+        foreach ($data as $record) {
+            $csv .= $record->id . ','
+                . $record->wastecode . ','
+                . $record->weight . ','
+                . $record->wastedescription . ','
+                . $record->disposalsite . ','
+                . $record->wastetype . ','
+                . $record->packaging . ','
+                . $record->state . ','
+                . $record->fullname . ','
+                . $record->wasteDate . ','
+                . $record->expiredDate . ','
+                . $record->transporterName . ','
+                . $record->companyname . "\r\n";
+        }
+
+        // Generate the Excel file
+        $filename = 'scheduledwaste.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $filename,
+        ];
+
+        return Response::make($csv, 200, $headers);
+    }
+
+    public function exportExcelGenerated($exportData, $expiredDate)
+    {
+        if ($exportData) {
+
+            if ($exportData == 'GeneratedReport') {
+                // Query for generated report
+                $data = DB::table('scheduledwaste')
+                ->orderBy('scheduledwaste.id', 'desc')
+                ->join('users', 'users.id','=','scheduledwaste.pic')
+                ->join('transporter', 'transporter.id','=','scheduledwaste.transporter')
+                ->join('receiver', 'receiver.id','=','scheduledwaste.companyreceiver')
+                ->select([
+                    'users.id AS userID',
+                    'transporter.id AS transID',
+                    'scheduledwaste.id AS swListID',
+                    'receiver.id AS receiveID',
+                    'users.*', 'scheduledwaste.*', 'transporter.*', 'receiver.*',
+                    'transporter.fullname AS transporterName'
+                ])
+                ->where('expiredDate', [$expiredDate])
+                ->get();
+            } else {
+                // Handle other cases if needed
+                // For example, if no button is clicked
+                $data = null;
+            }
+        } else {
+            $data = null;
+        }
+
+        // Generate the CSV content
+        $csv = "ID,Waste Code,Weight (mt),Waste Description,Disposal Site,Waste Type,Packaging, Physical State, Person In Charge, Waste Generated Date, Waste Expired Date, Transporter, Receiver\r\n";
+
+        foreach ($data as $record) {
+            $csv .= $record->id . ','
+            . $record->wastecode . ','
+            . $record->weight . ','
+            . $record->wastedescription . ','
+            . $record->disposalsite . ','
+            . $record->wastetype . ','
+            . $record->packaging . ','
+            . $record->state . ','
+            . $record->fullname . ','
+            . $record->wasteDate . ','
+            . $record->expiredDate . ','
+            . $record->transporterName . ','
+            . $record->companyname . "\r\n";
+        }
+
+        // Generate the Excel file
+        $filename = 'scheduledwaste.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $filename,
+        ];
+
+        return Response::make($csv, 200, $headers);
     }
 
 

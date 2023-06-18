@@ -112,10 +112,10 @@ Route::get('/Report-Generated', [App\Http\Controllers\ReportController::class, '
 Route::get('/export-pdf-generated/{exportData}/{expiredDate}', [App\Http\Controllers\ReportController::class, 'exportPDFGenerated'])->name('exportPDFGenerated');
 //export pdf 
 Route::get('/export-pdf-all/{exportData}', [App\Http\Controllers\ReportController::class, 'exportPDFAll'])->name('exportPDFAll');
-// //export excel 
-// Route::get('/export-excel-all/{exportData}', [App\Http\Controllers\ReportController::class, 'exportExcelAll'])->name('exportExcelAll');
-// //export excel 
-// Route::get('/export-excel-generated/{exportData}/{dateStart}/{dateEnd}', [App\Http\Controllers\ReportController::class, 'exportExcelGenerated'])->name('exportExcelGenerated');
+//export excel 
+Route::get('/export-excel-all/{exportData}', [App\Http\Controllers\ReportController::class, 'exportExcelAll'])->name('exportExcelAll');
+//export excel 
+Route::get('/export-excel-generated/{exportData}/{expiredDate}', [App\Http\Controllers\ReportController::class, 'exportExcelGenerated'])->name('exportExcelGenerated');
 
 
 
