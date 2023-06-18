@@ -166,10 +166,21 @@
                             </div>
                             </div>
                             <div class="col">
+                            @if( auth()->user()->category== "Manager" || auth()->user()->category== "Admin")
+                            <label>Approval</label>
+                                <select class="form-control" name="approval"  required>
+                                        <option value="">Please Select</option>
+                                        <option value="Reject">Reject</option>
+                                        <option value="Approve">Approve</option>
+                                </select>
+
+                                @elseif( auth()->user()->category== "Employee" )
                                 <label>Approval</label>
                                 <select class="form-control" name="approval" readonly>
                                         <option value="inprogress">In-Progress</option>
                                 </select>
+
+                                @endif
                             </div>
                         </div>
                         <br>

@@ -80,11 +80,14 @@
                         </tr>
                     </thead>
 
+                    @php
+                    $counter = 1;
+                    @endphp
                     @foreach($userlist as $index => $data)
                     @if($data->category === 'Employee')
                     <tbody>
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             <td><a type="button" class="btn btn-primary" href="{{ route('attendDetails', $data->id) }}"
@@ -92,14 +95,21 @@
                             </td>
                         </tr>
                 </tbody>
+                @php
+                        $counter++;
+                        @endphp
                 @endif
                 @endforeach
+                
 
                 @foreach($userlistAdmin as $index => $data)
+                @php
+                    $counter = 1;
+                    @endphp
                     @if($data->category === 'Manager' )
                     <tbody>
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             <td><a type="button" class="btn btn-primary" href="{{ route('attendDetails', $data->id) }}"
@@ -107,8 +117,12 @@
                             </td>
                         </tr>
                 </tbody>
+                @php
+                $counter++;
+                @endphp
                 @endif
                 @endforeach
+               
                 </table>
 
                 @endif
@@ -116,7 +130,7 @@
             </div>
         </div>
     </div>
-</div>
+</div><br>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script>

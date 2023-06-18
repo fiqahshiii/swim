@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Mail\MyTestMail;
 
-use App\Models\ScheduledWaste;
+use App\Models\scheduledwaste;
 
 class WasteController extends Controller
 {
@@ -97,7 +97,7 @@ class WasteController extends Controller
  
 
         // display message box in the same page
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+        return redirect()->back()->with('message', 'Scheduled Waste Updated Successfully');
     }
 
     public function ListWaste()

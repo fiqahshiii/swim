@@ -88,9 +88,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $counter = 1;
+                    @endphp
                     @foreach($receiverlist As $key=>$data)
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $data->companyname }}</td>
                             <td>{{ $data->fullname }}</td>
                             <td>{{ $data->phonenum }}</td>
@@ -99,7 +102,11 @@
                             <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->fullname }}">Delete</button>
                             </td>
                         </tr>
+                        @php
+                        $counter++;
+                        @endphp
                         @endforeach
+                        
                     </tbody>
                 </table>
 

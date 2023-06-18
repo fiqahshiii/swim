@@ -100,7 +100,7 @@ class TransporterController extends Controller
         $translist->update();
 
         // display message box in the same page
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+        return redirect()->back()->with('message', 'Transporter Updated Successfully');
         
     }
 

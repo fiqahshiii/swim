@@ -70,7 +70,7 @@ Route::get('/filelist', [App\Http\Controllers\DocumentController::class, 'Listof
 Route::get('/newfilelist', [App\Http\Controllers\DocumentController::class, 'NewFile'])->name('newSOPfile');
 Route::post('/insertDoc', [App\Http\Controllers\DocumentController::class, 'insertdocument'])->name('insertDoc');
 Route::get('/displayDoc/{id}', [App\Http\Controllers\DocumentController::class, 'displayDoc'])->name('displayDoc');//account nama dekat route sidenav
-Route::delete('/deleteFile/{id}', [App\Http\Controllers\DocumentController::class, 'deletefile'])->name('deletefile');//account nama dekat route sidenav
+Route::delete('/DeleteFile/{id}', [App\Http\Controllers\DocumentController::class, 'deletefile'])->name('deletefile');//account nama dekat route sidenav
 Route::get('/editDoc/{id}', [App\Http\Controllers\DocumentController::class, 'editDoc'])->name('editDoc');//account nama dekat route sidenav
 Route::put('/UpdatedDoc/{id}', [App\Http\Controllers\DocumentController::class, 'UpdatedDoc'])->name('UpdatedDoc');//account nama dekat route sidenav
 
@@ -103,8 +103,19 @@ Route::get('/editReceiver/{id}', [App\Http\Controllers\ReceiverController::class
 Route::put('/UpdatedReceiver/{id}', [App\Http\Controllers\ReceiverController::class, 'UpdatedReceiver'])->name('UpdatedReceiver');//account nama dekat route sidenav
 Route::delete('/deleteReceiver/{id}', [App\Http\Controllers\ReceiverController::class, 'deleteReceiver'])->name('deleteReceiver');//account nama dekat route sidenav
 
+//report
 
-
+Route::get('/report', [App\Http\Controllers\ReportController::class, 'report'])->name('report');
+//generatereport
+Route::get('/Report-Generated', [App\Http\Controllers\ReportController::class, 'generatereport'])->name('generatereport');
+//export pdf 
+Route::get('/export-pdf-generated/{exportData}/{expiredDate}', [App\Http\Controllers\ReportController::class, 'exportPDFGenerated'])->name('exportPDFGenerated');
+//export pdf 
+Route::get('/export-pdf-all/{exportData}', [App\Http\Controllers\ReportController::class, 'exportPDFAll'])->name('exportPDFAll');
+// //export excel 
+// Route::get('/export-excel-all/{exportData}', [App\Http\Controllers\ReportController::class, 'exportExcelAll'])->name('exportExcelAll');
+// //export excel 
+// Route::get('/export-excel-generated/{exportData}/{dateStart}/{dateEnd}', [App\Http\Controllers\ReportController::class, 'exportExcelGenerated'])->name('exportExcelGenerated');
 
 
 

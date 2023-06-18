@@ -93,7 +93,7 @@ class ReceiverController extends Controller
         $receiverlist->update();
 
         // display message box in the same page
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+        return redirect()->back()->with('message', 'Receiver Updated Successfully');
         
     }
 

@@ -74,14 +74,14 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary" style="background-color: #007bff; border-radius: 10px; border: none; width: 100px; color: white; font-size: 15px; float: right">
+            <button type="submit" class="btn btn-primary" style="background:#000066; border-radius: 10px; border: none; width: 100px; color: white; font-size: 15px; float: right">
             <!-- <button type="submit" class="btn btn-primary" style="background-color: #007bff; border-radius: 10px; border: none; width: 100px; color: white; font-size: 15px; float: right" data-bs-toggle="modal" data-bs-target="#confirmUpdate"> -->
             <b>SUBMIT</b></button>
            
             
         </form>   
     </div>
-</div>
+</div><br>
 
 @endsection
 <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>

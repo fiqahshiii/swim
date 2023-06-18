@@ -94,7 +94,7 @@ class DocumentController extends Controller
         $document->update();
 
         // display message box in the same page
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+        return redirect()->back()->with('message', 'Document Updated Successfully');
         
     }
     

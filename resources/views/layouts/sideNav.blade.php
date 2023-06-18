@@ -91,6 +91,14 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('report*') ? 'active' : '' }}" href="{{ route('report') }}">
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">summarize</i>
+                            <span>Report</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('account*') ? 'active' : '' }}" href="{{ route('account', Auth::user()->id) }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">settings</i>
@@ -106,7 +114,7 @@
                         <a class="nav-link {{ request()->routeIs('userlist*') ? 'active' : '' }}" href="{{ route('userlist') }}">
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">manage_accounts</i>
-                            <span>Manage User</span>
+                            <span>List of Users</span>
                         </a>
                     </li>
 
@@ -149,6 +157,14 @@
                             <!-- //work icon -->
                             <i class="material-icons" style="color:black">schedule</i>
                             <span>Users Attendance</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('report*') ? 'active' : '' }}" href="{{ route('report') }}">
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">report</i>
+                            <span>Report</span>
                         </a>
                     </li>
 
@@ -220,6 +236,14 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('report*') ? 'active' : '' }}" href="{{ route('report') }}">
+                            <!-- //work icon -->
+                            <i class="material-icons" style="color:black">summarize</i>
+                            <span>Report</span>
+                        </a>
                     </li>
 
                     <li class="nav-item">

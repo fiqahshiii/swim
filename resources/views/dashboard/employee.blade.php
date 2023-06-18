@@ -56,19 +56,19 @@
 </div><br>
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
         <div class="card">
             <div class="card-body">
-                <div id="columnchart_material" style="width: 800px; height: ;"></div>
+                <div id="columnchart_material" style="width: 500px; height: 400px;"></div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-4">
-        <div class="card" style="height: 300px;">
+    <div class="col-sm-5">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Scheduled Waste Approval</h5>
-                <div id="donutchart"></div>
+                <div id="piechart" style="width: 360px; height:360px;"></div>
             </div>
         </div>
     </div>
@@ -83,20 +83,32 @@
     google.charts.setOnLoadCallback(drawCharts);
 
     function drawCharts() {
-        var donutData = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Approve',     {{ $countApproveSW }}],
-            ['In-progress',     {{ $countinprogressSW }}],
-            ['Reject',     {{ $countRejectSW }}]
+
+        var countApproveSW = <?php echo $countApproveSW; ?>;
+        var countinprogressSW = <?php echo $countinprogressSW; ?>;
+        var countRejectSW = <?php echo $countRejectSW; ?>;
+
+        var data = google.visualization.arrayToDataTable([
+        ['Status', 'Count'],
+        ['Approve', countApproveSW],
+        ['In-progress', countinprogressSW],
+        ['Reject', countRejectSW]
         ]);
 
-        var donutOptions = {
-            title: '',
-            pieHole: 0.2,
+        var options = {
+        title: '',
+        width: 350, // Specify the desired width in pixels
+        height: 350, // Specify the desired height in pixels
+        legend: {
+            position: 'bottom',
+            alignment: 'start'
+        }
         };
 
-        var donutChart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        donutChart.draw(donutData, donutOptions);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+
 
         var columnData = google.visualization.arrayToDataTable([
             ['', 'Transporter', 'Available', 'Non-Available',  'Receiver'],
@@ -108,12 +120,15 @@
                 title: 'Total Consignment',
                 subtitle: '',
             },
-            width: 550, // Set the desired width
+            width: 500, // Set the desired width
             height: 400 // Set the desired height
         };
 
         var columnChart = new google.charts.Bar(document.getElementById('columnchart_material'));
         columnChart.draw(columnData, columnOptions);
+        
     }
+
+    
 </script>
 @endsection

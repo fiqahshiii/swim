@@ -57,7 +57,7 @@
             @if(request()->routeIs('swfile'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
             <!-- wasteEmp nama apa2 sama dengan route kat web.php -->
-                <a class="btn btn-primary" style="float: right; width:100%;" role="button" href="{{ route('newSOPfile') }}">
+                <a class="btn btn-primary" style="float: right; width:100%; background: #4775d1" role="button" href="{{ route('newSOPfile') }}">
                     <i class="fas fa-plus"></i>&nbsp; Add New File</a>
             </div>
             @else
@@ -87,15 +87,21 @@
                     </thead>
 
                     <tbody>
+                         @php
+                         $counter = 1;
+                         @endphp
                         @foreach($document As $key=>$data)
                         <tr id="row{{$data->id}}">
-                        <td>{{ $data->id }}</td>
+                        <td>{{ $counter }}</td>
                         <td>{{ $data->swcode }}</td>
                         <td>{{ $data->filename }}</td>
                         <td>
                             <a type="button" class="btn btn-primary" href="{{ route('displayDoc', $data->id)}}" style="background: #4775d1; ">View</a> 
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swcode }}" data-name="{{ $data->filename }}">Delete</button>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->filename }}">Delete</button>
                         </td>
+                        @php
+                        $counter++;
+                        @endphp
                          @endforeach
                         </tr>
                     </tbody>
@@ -106,7 +112,7 @@
             </div>
         </div>
     </div>
-</div>
+</div><br>
 
 <script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script>
@@ -137,7 +143,7 @@ function deleteItem(e) {
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '{{url("/deleteFile")}}/' + id,
+                    url: '{{url("/DeleteFile")}}/' + id,
                     data: {
                         "_token": "{{ csrf_token() }}",
                     },

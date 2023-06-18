@@ -89,7 +89,7 @@ $(document).ready(function(){
                         </div>
                         <div class="col">
                             <label>Phone Number</label>
-                            <input type="text" name="phonenum" class="form-control" placeholder="Phone Number" style="border-width: 1px; border-color: #666666;" required>
+                            <input type="number" name="phonenum" class="form-control" placeholder="Phone Number" style="border-width: 1px; border-color: #666666;" required>
                         </div>
                     </div>
                     <br>

@@ -88,11 +88,13 @@
                             <th>Check-out</th>
                         </tr>
                     </thead>
-
+                    @php
+                    $counter = 1;
+                    @endphp
                     @foreach($attendList as $index => $data)
                     <tbody>
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $data->date }}</td>
                             <td>{{ $data->checkin }}</td>
                             <td>
@@ -104,6 +106,9 @@
                                 @endif
                             </td>
                         </tr>
+                        @php
+                        $counter++;
+                        @endphp
                         @endforeach
                 </tbody>
                 </table>

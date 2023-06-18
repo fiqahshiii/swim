@@ -98,7 +98,7 @@
                             <td>{{ $data->category }}</td>
                             <td><img src="/assets/{{$data->image}}" width="100px" height="100px" style="float: middle; border-radius:50%">
                             </td>
-                            <td><a type="button" class="btn btn-primary" href="{{ route('displayuser', $data->id)}}">View</a> 
+                            <td><a type="button" class="btn btn-primary" style="background: #4775d1;" href="{{ route('displayuser', $data->id)}}">View</a> 
                             <a type="button" class="btn btn-danger" href="{{ route('deleteUser', $data->id)}}">Delete</a></td>
                             
                         </tr>

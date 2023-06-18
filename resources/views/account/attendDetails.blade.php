@@ -81,11 +81,14 @@
                         </tr>
                     </thead>
 
+                    @php
+                    $counter = 1;
+                    @endphp
                     @foreach($attendListEmp as $index => $data)
                     
                     <tbody>
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->date }}</td>
                             <td>{{ $data->checkin }}</td>
@@ -93,7 +96,9 @@
                            
                         </tr>
                 </tbody>
-                
+                        @php
+                        $counter++;
+                        @endphp
                 @endforeach
                 </table>
 

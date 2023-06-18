@@ -84,7 +84,7 @@ $(document).ready(function() {
                 </nav>
             </div>
 
-            @if( auth()->user()->category== "Employee")
+            @if( auth()->user()->category== "Employee" || auth()->user()->category== "Manager")
 
             @if(request()->routeIs('swlist'))
             <div class="col-lg-2 col-md-2 col-sm-2" style="float: right;">
@@ -125,9 +125,12 @@ $(document).ready(function() {
 
                     <tbody>
                     @if( auth()->user()->category== "Employee")
+                    @php
+                    $counter = 1;
+                    @endphp
                     @foreach($wastelist as $index => $data)
                     <tr id="row{{$data->id}}">
-                        <td>{{ $data->swListID }}</td>
+                        <td>{{ $counter }}</td>
                         <td class="{{ $wasteData[$index]['diffInDays'] < 10 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
                         <td>{{ $data->wastecode }}</td>
                         <td>{{ $data->statusDisposal }}</td>
@@ -151,12 +154,18 @@ $(document).ready(function() {
                             data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
                         </td>                        
                     </tr>
+                    @php
+                    $counter++;
+                    @endphp
                     @endforeach
 
                 @elseif(auth()->user()->category == "Manager" || auth()->user()->category == "Admin")
+                @php
+                $counter = 1;
+                @endphp
                 @foreach($wastelistManager as $index => $data)
                     <tr id="row{{$data->id}}">
-                        <td>{{ $data->swListID }}</td>
+                        <td>{{ $counter }}</td>
                         <td class="{{ $wasteData[$index]['diffInDays'] < 10 ? 'red-text' : '' }}">{{ $data->expiredDate }}</td>
                         <td>{{ $data->wastecode }}</td>
                         <td>{{ $data->statusDisposal }}</td>
@@ -176,11 +185,14 @@ $(document).ready(function() {
 
                         <td style="text-align: center;">
                             <a type="button" class="btn btn-primary" href="{{ route('displaywaste', $data->swListID) }}" style="background: #4775d1; ">View</a>
-                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->swListID }}" data-name="{{ $data->wastecode }}">Delete</button>
+                            <button class="btn btn-danger" type="button" onclick="deleteItem(this)" data-id="{{ $data->id }}" data-name="{{ $data->wastecode }}">Delete</button>
                             <a href="{{ route('getEmail', $data->pic) }}"><button class="btn"  style="background: #002b80; color: white; " type="button">Email</button></a>
 
                         </td>                        
                     </tr>
+                    @php
+                    $counter++;
+                    @endphp
                 @endforeach
                 @endif
                 </tbody>
@@ -191,6 +203,7 @@ $(document).ready(function() {
     </div>
 </div><br>
 
+<script src="{{ asset('frontend') }}/js/jquery.dataTables.js"></script>
 <script>
 function deleteItem(e) {
     let id = e.getAttribute('data-id');

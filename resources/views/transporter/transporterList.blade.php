@@ -12,6 +12,7 @@
         .action-cell {
         width: 200px;
         }
+       
     </style>
 </head>
 <script>
@@ -94,9 +95,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $counter = 1;
+                    @endphp
                     @foreach($transporterlist As $key=>$data)
                         <tr id="row{{$data->id}}">
-                            <td>{{ $data->id }}</td>
+                            <td>{{ $counter }} </td>
                             <td>{{ $data->fullname }}</td>
                             <td>{{ $data->city }}</td>
                             <td>{{ $data->platenumber }}</td>
@@ -110,7 +114,11 @@
 
                             </td>
                         </tr>
+                        @php
+                        $counter++;
+                        @endphp
                         @endforeach
+                       
                     </tbody>
                 </table>
 

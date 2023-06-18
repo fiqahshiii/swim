@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <center><button class="btn btn-success">Submit</button></center>
+                            <center><button class="btn btn-success" style="background: #000066;">Submit</button></center>
                         </div>
 
                     </form>
